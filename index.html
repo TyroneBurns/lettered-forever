@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Hand stitched, personalised cushions by Lettered Forever, made in the Algarve.">
+<title>Lettered Forever Cushions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500&family=Meow+Script&display=swap">
+<style>
+/* Layout: brochure-style single column — wordmark masthead, airy photo grid like an Instagram profile, letter-coded tiles, pop-up carousel with a spec card. Single brand theme by choice (matches the printed brochure). */
+:root{
+  --linen:#ECE3D4;      /* brochure page ground */
+  --linen-deep:#E3D8C5; /* placeholder / hover ground */
+  --rose:#A35F67;       /* headings, accents */
+  --rose-soft:#F3DADD;  /* pink note boxes */
+  --ink:#514C3E;        /* body text */
+  --taupe:#6B6551;      /* small caps labels */
+  --rule:#A39A7E;       /* box borders */
+  --veil:rgba(57,48,40,.72);
+  --display:"Cormorant Garamond",Garamond,"Times New Roman",serif;
+  --wordmark:"Bodoni Moda",Didot,"Bodoni 72",serif;
+  --script:"Meow Script","Snell Roundhand",cursive;
+  --label:"Jost","Futura","Avenir Next",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--linen)}
+body{background:var(--linen);color:var(--ink);font-family:var(--display);font-size:18px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:980px;margin:0 auto}
+.eyebrow{font-family:var(--label);font-weight:500;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--taupe)}
+
+/* masthead */
+header{text-align:center;padding-block:56px 36px}
+.mark{display:inline-block;position:relative;line-height:1}
+.mark .l{font-family:var(--wordmark);font-size:clamp(46px,10vw,88px);letter-spacing:.14em;color:#D9A3A3;padding-left:.14em}
+.mark .f{display:block;font-family:var(--script);font-size:clamp(50px,11vw,96px);color:#5C5648;margin-top:-.42em;margin-left:22%;line-height:1}
+header .rule{width:min(320px,70%);height:1px;background:var(--rule);opacity:.55;margin:18px auto 14px}
+header p.lede{font-style:italic;font-size:clamp(19px,2.4vw,22px);max-width:34ch;margin:22px auto 0;text-wrap:balance}
+
+/* section head */
+.head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin:8px 0 22px}
+.head h2{margin:6px 0 0;font-style:italic;font-weight:400;font-size:clamp(34px,5vw,46px);color:var(--rose);line-height:1.05;text-wrap:balance}
+.head .count{font-family:var(--label);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--taupe)}
+
+/* grid */
+.grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2.6vw,28px)}
+@media (max-width:620px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{all:unset;display:block;width:100%;cursor:pointer;border-radius:4px}
+.tile:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
+.ph{position:relative;aspect-ratio:1/1;max-width:100%;overflow:hidden;border-radius:4px;background:var(--linen-deep)}
+.ph img{width:100%;height:100%;object-fit:cover;object-position:50% 58%;display:block;transition:transform .5s ease}
+.tile:hover .ph img{transform:scale(1.035)}
+.tile .cap{display:flex;align-items:baseline;gap:10px;padding:10px 2px 0}
+.cap .k{font-family:var(--label);font-weight:500;font-size:11px;letter-spacing:.2em;color:var(--rose)}
+.cap .n{font-size:20px;letter-spacing:.02em}
+.cap .s{margin-left:auto;font-family:var(--label);font-size:10.5px;letter-spacing:.14em;color:var(--taupe);white-space:nowrap}
+@media (max-width:420px){.cap .s{display:none}}
+
+/* gingham placeholder used until a photo is present */
+.gingham{position:absolute;inset:0;display:grid;place-items:center;text-align:center;
+  background-color:#F7EFE8;
+  background-image:linear-gradient(90deg,rgba(214,150,150,.38) 50%,transparent 50%),linear-gradient(rgba(214,150,150,.38) 50%,transparent 50%);
+  background-size:22px 22px;}
+.gingham span{background:var(--linen);padding:8px 16px;border-radius:2px;font-style:italic;color:var(--rose);font-size:clamp(18px,3vw,26px);line-height:1.1}
+.gingham small{display:block;font-style:normal;font-family:var(--label);font-size:10px;letter-spacing:.24em;color:var(--taupe);margin-top:4px}
+
+/* commission strip */
+.cta{margin:72px 0 0;background:var(--rose-soft);border-left:2px solid var(--rule);border-radius:0 4px 4px 0;padding:26px clamp(18px,4vw,36px);display:grid;gap:14px;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:center}
+@media (max-width:640px){.cta{grid-template-columns:minmax(0,1fr)}}
+.cta h3{margin:4px 0 6px;font-weight:400;font-style:italic;font-size:30px;color:var(--rose)}
+.cta p{margin:0;max-width:46ch}
+.contact{display:grid;gap:8px;font-family:var(--label);font-size:14px;letter-spacing:.02em}
+.contact .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.contact code{font-family:inherit;user-select:all}
+.copy{font-family:var(--label);font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:none;border:1px solid var(--rule);color:var(--taupe);padding:4px 9px;border-radius:2px;cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+footer{text-align:center;padding-block:56px 48px}
+footer .sig{font-family:var(--script);font-size:44px;color:var(--rose);line-height:1}
+footer .eyebrow{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;margin-top:20px;letter-spacing:.28em}
+footer .eyebrow span{white-space:nowrap}
+footer .eyebrow .dot{opacity:.6}
+@media (max-width:520px){footer .eyebrow{flex-direction:column;align-items:center}footer .eyebrow .dot{display:none}}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:50;background:var(--veil);display:grid;place-items:center;
+  padding:calc(16px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  animation:fade .2s ease}
+@keyframes fade{from{opacity:0}}
+.sheet{position:relative;width:min(560px,100%);max-height:100%;overflow:auto;background:var(--linen);border-radius:6px;box-shadow:0 30px 80px rgba(40,30,25,.35)}
+.close{position:absolute;top:10px;right:10px;z-index:3;width:38px;height:38px;border-radius:50%;border:0;background:rgba(236,227,212,.92);color:var(--ink);font-size:22px;line-height:1;cursor:pointer}
+.close:focus-visible,.nav:focus-visible,.dot:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+.stage{position:relative;aspect-ratio:1/1;max-width:100%;overflow:hidden;background:var(--linen-deep);touch-action:pan-y}
+.track{display:flex;height:100%;transition:transform .35s ease}
+.slide{flex:0 0 100%;height:100%;position:relative}
+.slide img{width:100%;height:100%;object-fit:cover;object-position:50% 58%;display:block}
+.nav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:rgba(236,227,212,.92);color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center}
+.nav.prev{left:10px}.nav.next{right:10px}
+.dots{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:8px;z-index:2}
+.dot{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:rgba(236,227,212,.6);cursor:pointer}
+.dot[aria-current="true"]{background:var(--linen);transform:scale(1.25)}
+.spec{padding:22px clamp(18px,4vw,30px) 26px;display:grid;gap:16px}
+.spec h2{margin:2px 0 0;font-weight:400;font-style:italic;font-size:40px;color:var(--rose);line-height:1}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid rgba(163,154,126,.45)}
+.facts div{padding:12px 0;border-bottom:1px solid rgba(163,154,126,.45)}
+.facts div:nth-child(odd){padding-right:12px}
+.facts dt{font-family:var(--label);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--taupe)}
+.facts dd{margin:4px 0 0;font-size:21px;font-variant-numeric:tabular-nums}
+.step{display:flex;justify-content:space-between;gap:12px;font-family:var(--label);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+.step button{all:unset;cursor:pointer;color:var(--taupe)}
+.step button:hover{color:var(--rose)}
+.step button:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <div class="mark" aria-label="Lettered Forever"><span class="l">LETTERED</span><span class="f">forever</span></div>
+    <div class="rule"></div>
+    <div class="eyebrow">Hand stitched keepsakes</div>
+    <p class="lede">Ready-to-personalise cushions, each one embroidered by hand in the Algarve.</p>
+  </header>
+
+  <main>
+    <div class="head">
+      <div><div class="eyebrow">The cushion collection</div><h2>Choose your cushion</h2></div>
+      <div class="count" id="count"></div>
+    </div>
+    <ul class="grid" id="grid"></ul>
+
+    <section class="cta" aria-labelledby="cta-h">
+      <div>
+        <div class="eyebrow">Commissions</div>
+        <h3 id="cta-h">Fancy something? Let’s talk!</h3>
+        <p>Tell me the cushion letter you love and the name, date or words you’d like stitched. UK &amp; nationwide Portugal delivery, or collection in the Algarve.</p>
+      </div>
+      <div class="contact">
+        <div class="row"><code id="em">letteredforever@gmail.com</code><button class="copy" data-copy="em">Copy</button></div>
+        <div class="row"><a href="https://www.instagram.com/letteredforever/" target="_blank" rel="noopener" style="color:inherit">@letteredforever</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="sig">Lotti x</div>
+    <div class="eyebrow"><span>Made to order</span><span class="dot">·</span><span>Hand stitched, start to finish</span></div>
+  </footer>
+</div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="m-name">
+  <div class="sheet">
+    <button class="close" id="close" aria-label="Close">×</button>
+    <div class="stage" id="stage">
+      <div class="track" id="track"></div>
+      <button class="nav prev" id="prev" aria-label="Previous photo">‹</button>
+      <button class="nav next" id="next" aria-label="Next photo">›</button>
+      <div class="dots" id="dots"></div>
+    </div>
+    <div class="spec">
+      <div>
+        <div class="eyebrow" id="m-key"></div>
+        <h2 id="m-name"></h2>
+      </div>
+      <dl class="facts">
+        <div><dt>Size</dt><dd id="m-size"></dd></div>
+        <div><dt>Fabric</dt><dd id="m-fabric"></dd></div>
+      </dl>
+      <div class="step">
+        <button id="m-prevc">‹ <span></span></button>
+        <button id="m-nextc"><span></span> ›</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Each cushion: letter, name, size, fabric. Photos live at img/<LETTER>-1.jpg (grid + first slide), -2, -3 (carousel).
+const CUSHIONS = [
+  ["A","Halle","50 × 50 cm","100% cotton"],
+  ["B","Ezra","40 × 40 cm","100% cotton"],
+  ["C","Sonnie","50 × 50 cm","100% cotton"],
+  ["D","Eden","50 × 60 cm","100% cotton"],
+  ["E","Elsie","50 × 50 cm","100% linen"],
+  ["F","Rory","50 × 60 cm","100% cotton"],
+  ["G","Mable","50 × 50 cm","100% linen"],
+  ["H","Flynn","50 × 50 cm","100% cotton"],
+  ["I","Ivy","50 × 50 cm","100% cotton"],
+  ["J","Rudy","30 × 50 cm","100% cotton"],
+  ["K","Blake","30 × 50 cm","100% cotton"],
+  ["L","Goldie","48 × 48 cm","100% cotton"],
+  ["M","Ziggy","50 × 50 cm","100% linen"],
+  ["N","Jesse","48 × 48 cm","100% recycled cotton"],
+  ["O","Dustie","48 × 48 cm","100% recycled cotton"],
+  ["P","Gigi","48 × 48 cm","100% cotton"],
+  ["Q","River","30 × 50 cm","100% cotton"],
+  ["R","Rebel","40 × 40 cm","100% cotton"],
+  ["S","Blair","40 × 40 cm","100% cotton"],
+  ["T","Ace","40 × 60 cm","100% linen"]
+].map(([key,name,size,fabric])=>({key,name,size,fabric,photos:[1,2,3].map(i=>`img/${key}-${i}.jpg`)}));
+
+const $=id=>document.getElementById(id);
+function placeholder(c,i){
+  const d=document.createElement('div');d.className='gingham';
+  d.innerHTML=`<span>${c.name}<small>${c.key} · PHOTO ${i+1}</small></span>`;return d;
+}
+function photo(c,i,lazy){
+  const box=document.createDocumentFragment();
+  const img=new Image();img.alt=`${c.name} cushion, photo ${i+1}`;img.decoding='async';if(lazy)img.loading='lazy';
+  img.onerror=()=>img.replaceWith(placeholder(c,i));
+  img.src=c.photos[i];box.appendChild(img);return box;
+}
+
+$('count').textContent=`${CUSHIONS.length} designs · A–${CUSHIONS.at(-1).key}`;
+const grid=$('grid');
+CUSHIONS.forEach((c,idx)=>{
+  const li=document.createElement('li');
+  const b=document.createElement('button');b.className='tile';b.setAttribute('aria-label',`${c.key}, ${c.name}, ${c.size}. Open photos`);
+  const ph=document.createElement('div');ph.className='ph';ph.appendChild(photo(c,0,true));
+  const cap=document.createElement('div');cap.className='cap';
+  cap.innerHTML=`<span class="k">${c.key}</span><span class="n">${c.name}</span><span class="s">${c.size}</span>`;
+  b.append(ph,cap);b.onclick=()=>open(idx,b);li.appendChild(b);grid.appendChild(li);
+});
+
+let cur=0,slide=0,opener=null;
+function open(idx,from){opener=from||opener;cur=idx;slide=0;render();$('modal').hidden=false;document.body.style.overflow='hidden';$('close').focus();}
+function close(){$('modal').hidden=true;document.body.style.overflow='';opener&&opener.focus();}
+function render(){
+  const c=CUSHIONS[cur];
+  const t=$('track');t.innerHTML='';const dots=$('dots');dots.innerHTML='';
+  c.photos.forEach((_,i)=>{
+    const s=document.createElement('div');s.className='slide';s.appendChild(photo(c,i,false));t.appendChild(s);
+    const d=document.createElement('button');d.className='dot';d.setAttribute('aria-label',`Photo ${i+1}`);d.onclick=()=>go(i);dots.appendChild(d);
+  });
+  $('m-key').textContent=`Cushion ${c.key}`;$('m-name').textContent=c.name;
+  $('m-size').textContent=c.size;$('m-fabric').textContent=c.fabric.replace('100% ','100% ');
+  const p=CUSHIONS[(cur-1+CUSHIONS.length)%CUSHIONS.length],n=CUSHIONS[(cur+1)%CUSHIONS.length];
+  $('m-prevc').querySelector('span').textContent=`${p.key} ${p.name}`;
+  $('m-nextc').querySelector('span').textContent=`${n.key} ${n.name}`;
+  go(0);
+}
+function go(i){const len=CUSHIONS[cur].photos.length;slide=(i+len)%len;
+  $('track').style.transform=`translateX(${-100*slide}%)`;
+  [...$('dots').children].forEach((d,k)=>d.setAttribute('aria-current',k===slide));}
+$('prev').onclick=()=>go(slide-1);$('next').onclick=()=>go(slide+1);
+$('m-prevc').onclick=()=>{cur=(cur-1+CUSHIONS.length)%CUSHIONS.length;render();};
+$('m-nextc').onclick=()=>{cur=(cur+1)%CUSHIONS.length;render();};
+$('close').onclick=close;
+$('modal').addEventListener('click',e=>{if(e.target.id==='modal')close();});
+document.addEventListener('keydown',e=>{if($('modal').hidden)return;
+  if(e.key==='Escape')close();if(e.key==='ArrowLeft')go(slide-1);if(e.key==='ArrowRight')go(slide+1);});
+let sx=null;
+$('stage').addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+$('stage').addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)go(slide+(dx<0?1:-1));sx=null;});
+
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
+  const el=$(b.dataset.copy);
+  const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1600)};
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);};
+  try{navigator.clipboard.writeText(el.textContent).then(done,sel)}catch(e){sel()}
+});
+</script>
+
+</body>
+</html>
