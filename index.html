@@ -250,9 +250,9 @@ const VIEWS = {
   cushions:{hash:"#cushions",list:CUSHIONS,eyebrow:"The cushion collection",title:"Choose your cushion",label:"Cushion",
     count:l=>`${l.length} designs`,intro:null,hideKey:true},
   frames:{hash:"#framed",list:FRAMES,eyebrow:"Framed pieces",title:"Framed &amp; ready to hang",label:"Framed piece",
-    count:l=>`${l.length} pieces`,intro:"Finished framed embroidery, plus frames dressed in fabric and ready for your name, date or design."},
+    count:l=>`${l.length} pieces`,hideKey:true,intro:"Finished framed embroidery, plus frames dressed in fabric and ready for your name, date or design."},
   finds:{hash:"#local-finds",list:FINDS,eyebrow:"Selected local finds",title:"Vintage &amp; one-of-a-kind",label:"Local find",
-    count:l=>`${l.length} ${l.length===1?'piece':'pieces'}`,intro:"One-off pieces I’ve found locally, ready for your embroidery. Once they’re gone, they’re gone."}
+    count:l=>`${l.length} ${l.length===1?'piece':'pieces'}`,hideKey:true,intro:"One-off pieces I’ve found locally, ready for your embroidery. Once they’re gone, they’re gone."}
 };
 let LIST=CUSHIONS,VIEW=VIEWS.cushions;
 
