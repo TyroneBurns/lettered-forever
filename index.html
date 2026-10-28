@@ -151,7 +151,7 @@ footer .eyebrow .dot{opacity:.6}
       <div>
         <div class="eyebrow">Commissions</div>
         <h3 id="cta-h">Fancy something? Let’s talk!</h3>
-        <p>Tell me the cushion letter you love and the name, date or words you’d like stitched. UK &amp; nationwide Portugal delivery, or collection in the Algarve.</p>
+        <p>Tell me which cushion you love and the name, date or words you’d like stitched. UK &amp; nationwide Portugal delivery, or collection in the Algarve.</p>
       </div>
       <div class="contact">
         <div class="row"><code id="em">letteredforever@gmail.com</code><button class="copy" data-copy="em">Copy</button></div>
@@ -248,7 +248,7 @@ const FRAMES = [
 ];
 const VIEWS = {
   cushions:{hash:"#cushions",list:CUSHIONS,eyebrow:"The cushion collection",title:"Choose your cushion",label:"Cushion",
-    count:l=>`${l.length} designs · A–${l.at(-1).key}`,intro:null},
+    count:l=>`${l.length} designs`,intro:null,hideKey:true},
   frames:{hash:"#framed",list:FRAMES,eyebrow:"Framed pieces",title:"Framed &amp; ready to hang",label:"Framed piece",
     count:l=>`${l.length} pieces`,intro:"Finished framed embroidery, plus frames dressed in fabric and ready for your name, date or design."},
   finds:{hash:"#local-finds",list:FINDS,eyebrow:"Selected local finds",title:"Vintage &amp; one-of-a-kind",label:"Local find",
@@ -259,7 +259,7 @@ let LIST=CUSHIONS,VIEW=VIEWS.cushions;
 const $=id=>document.getElementById(id);
 function placeholder(c,i){
   const d=document.createElement('div');d.className='gingham';
-  d.innerHTML=`<span>${c.name}<small>${c.key} · PHOTO ${i+1}</small></span>`;return d;
+  d.innerHTML=`<span>${c.name}<small>PHOTO ${i+1}</small></span>`;return d;
 }
 function photo(c,i,lazy){
   const box=document.createDocumentFragment();
@@ -282,10 +282,10 @@ function build(){
   grid.innerHTML='';
   LIST.forEach((c,idx)=>{
     const li=document.createElement('li');
-    const b=document.createElement('button');b.className='tile';b.setAttribute('aria-label',`${c.key}, ${c.name}, ${c.size}. Open photos`);
+    const b=document.createElement('button');b.className='tile';b.setAttribute('aria-label',`${c.name}, ${c.size}. Open photos`);
     const ph=document.createElement('div');ph.className='ph';ph.appendChild(photo(c,0,true));
     const cap=document.createElement('div');cap.className='cap';
-    cap.innerHTML=`<span class="k">${c.key}</span><span class="n">${c.name}</span><span class="s">${c.size}</span>`;
+    cap.innerHTML=`${v.hideKey?'':`<span class="k">${c.key}</span>`}<span class="n">${c.name}</span><span class="s">${c.size}</span>`;
     b.append(ph,cap);b.onclick=()=>open(idx,b);li.appendChild(b);grid.appendChild(li);
   });
 }
@@ -302,13 +302,13 @@ function render(){
     const s=document.createElement('div');s.className='slide';s.appendChild(photo(c,i,false));t.appendChild(s);
     const d=document.createElement('button');d.className='dot';d.setAttribute('aria-label',`Photo ${i+1}`);d.onclick=()=>go(i);dots.appendChild(d);
   });
-  $('m-key').textContent=`${VIEW.label} ${c.key}`;$('m-name').textContent=c.name;
+  $('m-key').textContent=VIEW.hideKey?VIEW.label:`${VIEW.label} ${c.key}`;$('m-name').textContent=c.name;
   $('m-size').textContent=c.size;$('m-fabric').textContent=c.fabric;
   $('m-note-row').hidden=!c.note;$('m-note').textContent=c.note||'';
   const p=LIST[(cur-1+LIST.length)%LIST.length],n=LIST[(cur+1)%LIST.length];
   $('m-prevc').hidden=$('m-nextc').hidden=LIST.length<2;
-  $('m-prevc').querySelector('span').textContent=`${p.key} ${p.name}`;
-  $('m-nextc').querySelector('span').textContent=`${n.key} ${n.name}`;
+  $('m-prevc').querySelector('span').textContent=VIEW.hideKey?p.name:`${p.key} ${p.name}`;
+  $('m-nextc').querySelector('span').textContent=VIEW.hideKey?n.name:`${n.key} ${n.name}`;
   go(0);
 }
 function go(i){const len=LIST[cur].photos.length;slide=(i+len)%len;
