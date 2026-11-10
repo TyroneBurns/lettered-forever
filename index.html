@@ -79,7 +79,8 @@ header p.lede{font-style:italic;font-size:clamp(19px,2.4vw,22px);max-width:34ch;
 .how ol{margin:0;padding-left:1.4em;display:grid;gap:6px}
 .how li::marker{font-family:var(--label);font-size:13px;color:var(--rose)}
 .how-c{margin:16px 0 0;display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--label);font-size:13px;letter-spacing:.04em}
-.how-c b{font-weight:500;letter-spacing:.2em;font-size:10.5px;color:var(--taupe);margin-right:6px}
+.ci{display:inline-flex;align-items:center;gap:9px;color:inherit}.ci .ico{width:19px;height:19px;flex:none;color:var(--rose)}
+.how-c{flex-direction:column;gap:8px}
 .how-c a{color:inherit}.how-c .sel{user-select:all;word-break:break-all}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin:8px 0 22px}
 .head h2{margin:6px 0 0;font-style:italic;font-weight:400;font-size:clamp(34px,5vw,46px);color:var(--rose);line-height:1.05;text-wrap:balance}
@@ -125,7 +126,7 @@ header p.lede{font-style:italic;font-size:clamp(19px,2.4vw,22px);max-width:34ch;
 @media (max-width:640px){.cta{grid-template-columns:minmax(0,1fr)}}
 .cta h3{margin:4px 0 6px;font-weight:400;font-style:italic;font-size:30px;color:var(--rose)}
 .cta p{margin:0 0 10px;max-width:46ch}.cta p:last-child{margin-bottom:0}
-.ig{display:inline-flex;align-items:center;gap:8px;color:inherit}.ig svg{width:18px;height:18px;flex:none}
+.ig{display:inline-flex;align-items:center;gap:8px;color:inherit}
 .contact{display:grid;gap:8px;font-family:var(--label);font-size:14px;letter-spacing:.02em}
 .contact .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .contact code{font-family:inherit;user-select:all}
@@ -196,7 +197,7 @@ footer .eyebrow .dot{opacity:.6}
         <li>Have a browse and choose which cushion you would like</li>
         <li>Get in touch and we can discuss your embroidered design options</li>
       </ol>
-      <p class="how-c"><span><b>IG</b> <a href="https://www.instagram.com/letteredforever/" target="_blank" rel="noopener">@letteredforever</a></span><span><b>Email</b> <span class="sel">letteredforever@gmail.com</span></span></p>
+      <p class="how-c"><span class="ci"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg><span class="sel">letteredforever@gmail.com</span></span><a class="ci" href="https://www.instagram.com/letteredforever/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>@letteredforever</a></p>
     </section>
     <div class="head">
       <div><div class="eyebrow" id="v-eyebrow">The cushion collection</div><h2 id="v-title">Choose your cushion</h2></div>
@@ -231,8 +232,8 @@ footer .eyebrow .dot{opacity:.6}
         <p>My designs usually have a 2–3 week turnaround, however please let me know if you have a specific date in mind and I will try my best!</p>
       </div>
       <div class="contact">
-        <div class="row"><code id="em">letteredforever@gmail.com</code><button class="copy" data-copy="em">Copy</button></div>
-        <div class="row"><a class="ig" href="https://www.instagram.com/letteredforever/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>@letteredforever</a></div>
+        <div class="row"><span class="ci"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg><code id="em">letteredforever@gmail.com</code></span><button class="copy" data-copy="em">Copy</button></div>
+        <div class="row"><a class="ig ci" href="https://www.instagram.com/letteredforever/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>@letteredforever</a></div>
       </div>
     </section>
   </main>
