@@ -190,7 +190,7 @@ footer .eyebrow .dot{opacity:.6}
     <div class="rule"></div>
     <div class="eyebrow">Hand stitched keepsakes</div>
     <a class="aboutlink" href="#about" id="aboutlink">About me <span aria-hidden="true">→</span></a>
-    <figure class="arch hero" id="hero"><img src="img/hero-cushions.jpg" alt="Shelves stacked with ruffled Lettered Forever cushions" fetchpriority="high"></figure>
+    <figure class="arch hero" id="hero"><img src="img/hero-cushions.jpg?v=1740" alt="Shelves stacked with ruffled Lettered Forever cushions" fetchpriority="high"></figure>
     <p class="lede" id="lede">Ready-to-personalise cushions, hand embroidered by Lotti</p>
   </header>
 
@@ -211,7 +211,7 @@ footer .eyebrow .dot{opacity:.6}
     <ul class="grid" id="grid"></ul>
     <section class="about" id="about" hidden aria-label="About me">
       <div class="about-intro">
-        <figure class="arch about-photo"><img src="img/lotti-arch.jpg" alt="Lotti in front of shelves stacked with her hand stitched cushions" loading="lazy"></figure>
+        <figure class="arch about-photo"><img src="img/lotti-arch.jpg?v=1740" alt="Lotti in front of shelves stacked with her hand stitched cushions" loading="lazy"></figure>
         <div class="about-text">
           <h3>Hello, I’m Lotti</h3>
           <p>I’m the founder of Lettered Forever, and mama to three little ones. Embroidery has become my way of slowing down, getting creative, and finding a little time in the week to fill my own cup.</p>
@@ -243,7 +243,7 @@ footer .eyebrow .dot{opacity:.6}
   </main>
 
   <footer>
-    <figure class="arch" id="footarch"><img src="img/lotti-arch.jpg" alt="Lotti in front of shelves stacked with her hand stitched cushions" loading="lazy"></figure>
+    <figure class="arch" id="footarch"><img src="img/lotti-arch.jpg?v=1740" alt="Lotti in front of shelves stacked with her hand stitched cushions" loading="lazy"></figure>
     <div class="sig">Lotti x</div>
     <div class="eyebrow"><span>Made to order</span><span class="dot">·</span><span>Hand stitched, start to finish</span></div>
   </footer>
@@ -379,7 +379,7 @@ function build(){
   $('v-eyebrow').textContent=v.eyebrow;$('v-title').innerHTML=v.title;
   $('count').textContent=v.count(LIST);
   $('lede').hidden=$('hero').hidden=$('how').hidden=v!==VIEWS.cushions;$('about').hidden=v!==VIEWS.about;$('footarch').hidden=v===VIEWS.about;$('aboutlink').hidden=v===VIEWS.about;
-  if(v===VIEWS.about&&!$('pages').children.length){$('pages').innerHTML=Array.from({length:9},(_,i)=>`<img src="img/brochure-${i+1}.jpg" alt="Lettered Forever brochure, page ${i+1}" loading="lazy">`).join('');}$('v-intro').hidden=!v.intro;$('v-intro').textContent=v.intro||'';
+  if(v===VIEWS.about&&!$('pages').children.length){$('pages').innerHTML=Array.from({length:9},(_,i)=>`<img src="img/brochure-${i+1}.jpg?v=1740" alt="Lettered Forever brochure, page ${i+1}" loading="lazy">`).join('');}$('v-intro').hidden=!v.intro;$('v-intro').textContent=v.intro||'';
   $('v-links').innerHTML=Object.values(VIEWS).filter(x=>x!==v&&!x.off).map(x=>{
     const back=x===VIEWS.cushions;
     return `<a class="more" href="${x.hash}"><span class="eyebrow">${back?'Back to':(x.linkEb||'Also available')}</span><span class="more-t">${back?'<span aria-hidden="true">←</span> ':''}${x.eyebrow}${back?'':' <span aria-hidden="true">→</span>'}</span></a>`;
