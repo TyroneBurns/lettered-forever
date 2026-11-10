@@ -35,6 +35,10 @@
   --linen-deep:#E3D8C5; /* placeholder / hover ground */
   --rose:#A35F67;       /* headings, accents */
   --rose-soft:#E8D4CD;  /* pink note boxes */
+  --box:#DEC5BD;        /* dusty rose text boxes */
+  --box-line:rgba(120,78,74,.28);
+  --box-ink:#3E392D;    /* text inside boxes */
+  --box-head:#8E4B55;   /* headings inside boxes */
   --ink:#514C3E;        /* body text */
   --taupe:#6B6551;      /* small caps labels */
   --rule:#A39A7E;       /* box borders */
@@ -74,8 +78,8 @@ header p.lede{font-style:italic;font-size:clamp(19px,2.4vw,22px);max-width:34ch;
 .pages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2.6vw,28px)}
 @media (max-width:560px){.pages{grid-template-columns:minmax(0,1fr)}}
 .pages img{display:block;width:100%;max-width:100%;aspect-ratio:420/595;object-fit:cover;border-radius:3px;box-shadow:0 10px 28px rgba(60,45,35,.16)}
-.how{margin:8px auto 40px;max-width:560px;background:var(--rose-soft);border:1px solid rgba(140,100,95,.22);border-radius:6px;padding:22px clamp(18px,4vw,30px)}
-.how h3{margin:0 0 10px;font-weight:400;font-style:italic;font-size:28px;color:var(--rose)}
+.how{margin:8px auto 40px;max-width:560px;background:var(--box);color:var(--box-ink);border:1px solid var(--box-line);border-radius:6px;padding:22px clamp(18px,4vw,30px)}
+.how h3{margin:0 0 10px;font-weight:400;font-style:italic;font-size:28px;color:var(--box-head)}
 .how ol{margin:0;padding-left:1.4em;display:grid;gap:6px}
 .how li::marker{font-family:var(--label);font-size:13px;color:var(--rose)}
 .how-c{margin:16px 0 0;display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--label);font-size:13px;letter-spacing:.04em}
@@ -122,9 +126,9 @@ header p.lede{font-style:italic;font-size:clamp(19px,2.4vw,22px);max-width:34ch;
 .facts .wide{grid-column:1/-1;padding-right:0}
 
 /* commission strip */
-.cta{margin:72px 0 0;background:var(--rose-soft);border-left:2px solid var(--rule);border-radius:0 4px 4px 0;padding:26px clamp(18px,4vw,36px);display:grid;gap:14px;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:center}
+.cta{margin:72px 0 0;background:var(--box);color:var(--box-ink);border:1px solid var(--box-line);border-radius:6px;padding:26px clamp(18px,4vw,36px);display:grid;gap:14px;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:center}
 @media (max-width:640px){.cta{grid-template-columns:minmax(0,1fr)}}
-.cta h3{margin:4px 0 6px;font-weight:400;font-style:italic;font-size:30px;color:var(--rose)}
+.cta h3{margin:4px 0 6px;font-weight:400;font-style:italic;font-size:30px;color:var(--box-head)}
 .cta p{margin:0 0 10px;max-width:46ch}.cta p:last-child{margin-bottom:0}
 .ig{display:inline-flex;align-items:center;gap:8px;color:inherit}
 .contact{display:grid;gap:8px;font-family:var(--label);font-size:14px;letter-spacing:.02em}
@@ -437,6 +441,8 @@ document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
   try{navigator.clipboard.writeText(el.textContent).then(done,sel)}catch(e){sel()}
 });
 </script>
+
+<style>.how .eyebrow,.cta .eyebrow{color:#5A5444}.how li::marker{color:var(--box-head)}.how .ico,.cta .ico{color:var(--box-head)}.cta .copy{border-color:var(--box-line);color:#5A5444}.aboutlink{background:var(--box);color:var(--box-head);border-color:var(--box-head)}.aboutlink:hover{background:var(--box-head);color:var(--linen)}</style>
 
 </body>
 </html>
