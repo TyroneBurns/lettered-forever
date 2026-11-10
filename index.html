@@ -61,6 +61,13 @@ header .rule{width:min(320px,70%);height:1px;background:var(--rule);opacity:.55;
 header p.lede{font-style:italic;font-size:clamp(19px,2.4vw,22px);max-width:34ch;margin:22px auto 0;text-wrap:balance}
 
 /* section head */
+.how{margin:8px auto 40px;max-width:560px;background:var(--rose-soft);border:1px solid rgba(163,95,103,.25);border-radius:6px;padding:22px clamp(18px,4vw,30px)}
+.how h3{margin:0 0 10px;font-weight:400;font-style:italic;font-size:28px;color:var(--rose)}
+.how ol{margin:0;padding-left:1.4em;display:grid;gap:6px}
+.how li::marker{font-family:var(--label);font-size:13px;color:var(--rose)}
+.how-c{margin:16px 0 0;display:flex;flex-wrap:wrap;gap:6px 22px;font-family:var(--label);font-size:13px;letter-spacing:.04em}
+.how-c b{font-weight:500;letter-spacing:.2em;font-size:10.5px;color:var(--taupe);margin-right:6px}
+.how-c a{color:inherit}.how-c .sel{user-select:all;word-break:break-all}
 .head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin:8px 0 22px}
 .head h2{margin:6px 0 0;font-style:italic;font-weight:400;font-size:clamp(34px,5vw,46px);color:var(--rose);line-height:1.05;text-wrap:balance}
 .head .count{font-family:var(--label);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--taupe)}
@@ -71,12 +78,11 @@ header p.lede{font-style:italic;font-size:clamp(19px,2.4vw,22px);max-width:34ch;
 .tile{all:unset;display:block;width:100%;cursor:pointer;border-radius:4px}
 .tile:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
 .ph{position:relative;aspect-ratio:1/1;max-width:100%;overflow:hidden;border-radius:4px;background:var(--linen-deep)}
+/* framing set per tile via --z/--o */
 .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 58%;display:block;transition:transform .5s ease}
 .tile:hover .ph img{transform:scale(1.035)}
-.grid.zoom .ph img{transform:scale(1.45);transform-origin:50% 66%}
-.grid.zoom .tile:hover .ph img{transform:scale(1.5)}
-.grid.zoom-finds .ph img{object-position:50% 50%;transform:scale(1.32);transform-origin:50% 30%}
-.grid.zoom-finds .tile:hover .ph img{transform:scale(1.37)}
+.ph img{transform:scale(var(--z,1));transform-origin:var(--o,50% 50%)}
+.tile:hover .ph img{transform:scale(calc(var(--z,1) * 1.035))}
 .tile .cap{display:flex;align-items:baseline;gap:10px;padding:10px 2px 0}
 .cap .k{font-family:var(--label);font-weight:500;font-size:11px;letter-spacing:.2em;color:var(--rose)}
 .cap .n{font-size:20px;letter-spacing:.02em}
@@ -168,6 +174,14 @@ footer .eyebrow .dot{opacity:.6}
   </header>
 
   <main>
+    <section class="how" id="how" aria-labelledby="how-h">
+      <h3 id="how-h">How it works</h3>
+      <ol>
+        <li>Have a browse and choose which cushion you would like</li>
+        <li>Get in touch and we can discuss your embroidered design options</li>
+      </ol>
+      <p class="how-c"><span><b>IG</b> <a href="https://www.instagram.com/letteredforever/" target="_blank" rel="noopener">@letteredforever</a></span><span><b>Email</b> <span class="sel">letteredforever@gmail.com</span></span></p>
+    </section>
     <div class="head">
       <div><div class="eyebrow" id="v-eyebrow">The cushion collection</div><h2 id="v-title">Choose your cushion</h2></div>
       <div class="count" id="count"></div>
@@ -228,6 +242,19 @@ footer .eyebrow .dot{opacity:.6}
 <script>
 // Each cushion: letter, name, size, fabric. Photos live at img/<LETTER>-1.jpg (grid + first slide), -2, -3 (carousel).
 const CUSHIONS = [
+  ["21","Freddie","30 × 50 cm","100% cotton"],
+  ["22","Daphne","43 × 43 cm","100% cotton"],
+  ["23","George","45 × 45 cm","100% cotton"],
+  ["24","Dahlia","40 × 40 cm","100% cotton"],
+  ["25","Rusty","40 × 40 cm","100% cotton"],
+  ["26","Lune","40 × 40 cm","100% cotton"],
+  ["27","Leo","45 × 45 cm","55% linen, 45% cotton"],
+  ["28","Otto","45 × 45 cm","100% cotton"],
+  ["29","Inka","43 × 43 cm","100% cotton"],
+  ["30","Thea","45 × 45 cm","100% cotton"],
+  ["31","Sol","43 × 43 cm","100% cotton"],
+  ["32","Isla","43 × 43 cm","100% cotton"],
+  ["33","Bodhi","40 × 40 cm","100% linen"],
   ["A","Halle","50 × 50 cm","100% cotton"],
   ["B","Ezra","40 × 40 cm","100% cotton"],
   ["C","Sonnie","50 × 50 cm","100% cotton"],
@@ -247,28 +274,15 @@ const CUSHIONS = [
   ["Q","River","30 × 50 cm","100% cotton"],
   ["R","Rebel","40 × 40 cm","100% cotton"],
   ["S","Blair","40 × 40 cm","100% cotton"],
-  ["T","Ace","40 × 60 cm","100% linen"],
-  ["21","Freddie","30 × 50 cm","100% cotton"],
-  ["22","Daphne","43 × 43 cm","100% cotton"],
-  ["23","George","45 × 45 cm","100% cotton"],
-  ["24","Dahlia","40 × 40 cm","100% cotton"],
-  ["25","Rusty","40 × 40 cm","100% cotton"],
-  ["26","Lune","40 × 40 cm","100% cotton"],
-  ["27","Leo","45 × 45 cm","55% linen, 45% cotton"],
-  ["28","Otto","45 × 45 cm","100% cotton"],
-  ["29","Inka","43 × 43 cm","100% cotton"],
-  ["30","Thea","45 × 45 cm","100% cotton"],
-  ["31","Sol","43 × 43 cm","100% cotton"],
-  ["32","Isla","43 × 43 cm","100% cotton"],
-  ["33","Bodhi","40 × 40 cm","100% linen"]
+  ["T","Ace","40 × 60 cm","100% linen"]
 ].map(([key,name,size,fabric])=>({key,name,size,fabric,photos:[1,2,3].map(i=>`img/${key}-${i}.jpg`)}));
 
 // Selected local finds: one-off vintage pieces. Photos at img/find-<NN>-<n>.jpg
 const FINDS = [
-  {key:"01",name:"Swans",size:"38 × 31 cm",fabric:"100% cotton",note:"Portuguese vintage pillowcase",photos:[1,2,3,4].map(i=>`img/find-01-${i}.jpg`)},
-  {key:"02",name:"Ladder",size:"30 × 25 cm",fabric:"100% cotton",note:"Portuguese vintage pillowcase",photos:[1,2,3].map(i=>`img/find-02-${i}.jpg`)},
-  {key:"03",name:"Puddle Duck",size:"25 × 30 cm",fabric:"100% cotton",note:"Portuguese vintage pillowcase",photos:[1,2,3,4,5].map(i=>`img/find-03-${i}.jpg`)},
-  {key:"04",name:"Ivory Linen",size:"65 × 65 cm",fabric:"100% linen",photos:[1,2].map(i=>`img/find-04-${i}.jpg`)}
+  {key:"01",name:"Swimming Ducks",z:{s:1.2,o:"24% 30%"},size:"38 × 31 cm",fabric:"100% cotton",note:"Portuguese vintage pillowcase",photos:[1,2,3,4].map(i=>`img/find-01-${i}.jpg`)},
+  {key:"02",name:"Powder Blue",z:{s:1.32,o:"50% 30%"},size:"30 × 25 cm",fabric:"100% cotton",note:"Portuguese vintage pillowcase",photos:[1,2,3].map(i=>`img/find-02-${i}.jpg`)},
+  {key:"03",name:"Puddle Duck",z:{s:1.32,o:"50% 30%"},size:"25 × 30 cm",fabric:"100% cotton",note:"Portuguese vintage pillowcase",photos:[1,2,3,4,5].map(i=>`img/find-03-${i}.jpg`)},
+  {key:"04",name:"Extra Large Ivory Linen",z:{s:1.25,o:"50% 72%"},size:"65 × 65 cm",fabric:"100% linen",photos:[1,2].map(i=>`img/find-04-${i}.jpg`)}
 ];
 // Framed pieces: sizes/details to follow. Photos at img/frame-<NN>-<n>.jpg
 const TBC="To follow";
@@ -320,7 +334,7 @@ function build(){
   VIEW=v;LIST=v.list;
   $('v-eyebrow').textContent=v.eyebrow;$('v-title').innerHTML=v.title;
   $('count').textContent=v.count(LIST);
-  $('lede').hidden=$('hero').hidden=v!==VIEWS.cushions;$('v-intro').hidden=!v.intro;$('v-intro').textContent=v.intro||'';
+  $('lede').hidden=$('hero').hidden=$('how').hidden=v!==VIEWS.cushions;$('v-intro').hidden=!v.intro;$('v-intro').textContent=v.intro||'';
   $('v-links').innerHTML=Object.values(VIEWS).filter(x=>x!==v).map(x=>{
     const back=x===VIEWS.cushions;
     return `<a class="more" href="${x.hash}"><span class="eyebrow">${back?'Back to':'Also available'}</span><span class="more-t">${back?'<span aria-hidden="true">←</span> ':''}${x.eyebrow}${back?'':' <span aria-hidden="true">→</span>'}</span></a>`;
@@ -331,6 +345,8 @@ function build(){
     const li=document.createElement('li');
     const b=document.createElement('button');b.className='tile';b.setAttribute('aria-label',`${c.name}, ${c.size}. Open photos`);
     const ph=document.createElement('div');ph.className='ph';ph.appendChild(photo(c,0,true));
+    const fz=c.z||(v===VIEWS.cushions&&/^[A-Z]$/.test(c.key)?{s:1.22,o:'50% 64%'}:null);
+    if(fz){ph.style.setProperty('--z',fz.s);ph.style.setProperty('--o',fz.o);}
     const cap=document.createElement('div');cap.className='cap';
     cap.innerHTML=`${v.hideKey?'':`<span class="k">${c.key}</span>`}<span class="n">${c.name}</span><span class="s">${c.size}</span>`;
     b.append(ph,cap);b.onclick=()=>open(idx,b);li.appendChild(b);grid.appendChild(li);
