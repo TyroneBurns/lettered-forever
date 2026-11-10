@@ -274,7 +274,7 @@ footer .eyebrow .dot{opacity:.6}
 // Each cushion: letter, name, size, fabric. Photos live at img/<LETTER>-1.jpg (grid + first slide), -2, -3 (carousel).
 const CUSHIONS = [
   ["21","Freddie","30 × 50 cm","100% cotton"],
-  ["22","Daphne","43 × 43 cm","100% cotton"],
+  ["22","Ottilie","43 × 43 cm","100% cotton"],
   ["23","George","45 × 45 cm","100% cotton"],
   ["24","Dahlia","40 × 40 cm","100% cotton"],
   ["25","Rusty","40 × 40 cm","100% cotton"],
@@ -306,7 +306,7 @@ const CUSHIONS = [
   ["R","Rebel","40 × 40 cm","100% cotton"],
   ["S","Blair","40 × 40 cm","100% cotton"],
   ["T","Ace","40 × 60 cm","100% linen"]
-].map(([key,name,size,fabric])=>({key,name,size,fabric,photos:[1,2,3].map(i=>`img/${key}-${i}.jpg`)}));
+].map(([key,name,size,fabric])=>({key,name,size,fabric,photos:Array.from({length:({"22":5}[key]||3)},(_,i)=>`img/${key}-${i+1}.jpg`)}));
 
 // Selected local finds: one-off vintage pieces. Photos at img/find-<NN>-<n>.jpg
 const FINDS = [
