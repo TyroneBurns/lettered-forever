@@ -261,14 +261,13 @@ const FRAMES = [
   fr("17","Gilt Grey",1,"Vintage gold-lined frame with grey linen, ready for your embroidery"),
   fr("18","Gilt Oat",1,"Vintage gold-lined frame with natural linen, ready for your embroidery")
 ];
+const fin=(key,name,n,note)=>({key,name,size:TBC,fabric:TBC,note,photos:Array.from({length:n},(_,i)=>`img/fin-${key}-${i+1}.jpg`)});
 const FINISHED = [
-  fr("07","Popcorn",2,"Hand embroidered with pearl beads, scalloped wooden frame"),
-  fr("08","Cherry on Top",1,"Beaded ice cream with sequins and pearls, scalloped wooden frame"),
-  fr("09","Three Scoops",2,"Trio of beaded ice creams, scalloped wooden frame with mount"),
-  fr("10","Dustie",2,"Hand stitched name in a vintage gold-lined frame"),
-  fr("11","Dandelion",1,"Hand embroidered dandelion, dark wood frame with mount"),
-  fr("19","Woodland",2,"Hand embroidered fox, squirrel and toadstools in a rounded wooden frame"),
-  fr("20","Maverick",1,"Hand stitched name in a weathered blue frame with mount")
+  fin("01","Full of Sh*t",6,"Oversized checkerboard canvas tote, hand stitched lettering with bright orange straps"),
+  fin("02","La Glace",3,"Beaded ice cream with sequins, pearls and a hand stitched cherry, scalloped wooden frame"),
+  fin("03","Popcorn",3,"French knot popcorn with pearl beads, scalloped wooden frame"),
+  fin("04","Three Scoops",5,"Trio of beaded ice creams, scalloped wooden frame with mount"),
+  fin("05","Woodland",2,"Hand embroidered fox, squirrel, acorns and toadstools in a rounded wooden frame")
 ];
 const VIEWS = {
   cushions:{hash:"#cushions",list:CUSHIONS,eyebrow:"The cushion collection",title:"Choose your cushion",label:"Cushion",
