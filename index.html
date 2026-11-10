@@ -34,7 +34,7 @@
   --linen:#ECE3D4;      /* brochure page ground */
   --linen-deep:#E3D8C5; /* placeholder / hover ground */
   --rose:#A35F67;       /* headings, accents */
-  --rose-soft:#F3DADD;  /* pink note boxes */
+  --rose-soft:#E8D4CD;  /* pink note boxes */
   --ink:#514C3E;        /* body text */
   --taupe:#6B6551;      /* small caps labels */
   --rule:#A39A7E;       /* box borders */
@@ -61,7 +61,8 @@ header .rule{width:min(320px,70%);height:1px;background:var(--rule);opacity:.55;
 header p.lede{font-style:italic;font-size:clamp(19px,2.4vw,22px);max-width:34ch;margin:22px auto 0;text-wrap:balance}
 
 /* section head */
-.aboutlink{display:inline-block;margin-top:14px;font-family:var(--label);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--rose);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px}
+.aboutlink{display:inline-flex;align-items:center;gap:10px;margin-top:20px;padding:10px 26px;font-family:var(--display);font-style:italic;font-size:24px;line-height:1.1;color:var(--rose);text-decoration:none;border:1px solid var(--rose);border-radius:999px;background:var(--rose-soft);transition:background .2s,color .2s}
+.aboutlink:hover{background:var(--rose);color:var(--linen)}
 .aboutlink:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
 .about-intro{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(22px,4vw,48px);align-items:start;margin-bottom:56px}
 @media (max-width:700px){.about-intro{grid-template-columns:minmax(0,1fr)}}
@@ -73,7 +74,7 @@ header p.lede{font-style:italic;font-size:clamp(19px,2.4vw,22px);max-width:34ch;
 .pages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2.6vw,28px)}
 @media (max-width:560px){.pages{grid-template-columns:minmax(0,1fr)}}
 .pages img{display:block;width:100%;max-width:100%;aspect-ratio:420/595;object-fit:cover;border-radius:3px;box-shadow:0 10px 28px rgba(60,45,35,.16)}
-.how{margin:8px auto 40px;max-width:560px;background:var(--rose-soft);border:1px solid rgba(163,95,103,.25);border-radius:6px;padding:22px clamp(18px,4vw,30px)}
+.how{margin:8px auto 40px;max-width:560px;background:var(--rose-soft);border:1px solid rgba(140,100,95,.22);border-radius:6px;padding:22px clamp(18px,4vw,30px)}
 .how h3{margin:0 0 10px;font-weight:400;font-style:italic;font-size:28px;color:var(--rose)}
 .how ol{margin:0;padding-left:1.4em;display:grid;gap:6px}
 .how li::marker{font-family:var(--label);font-size:13px;color:var(--rose)}
@@ -131,7 +132,7 @@ header p.lede{font-style:italic;font-size:clamp(19px,2.4vw,22px);max-width:34ch;
 .copy{font-family:var(--label);font-size:10px;letter-spacing:.2em;text-transform:uppercase;background:none;border:1px solid var(--rule);color:var(--taupe);padding:4px 9px;border-radius:2px;cursor:pointer}
 .copy:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
 footer{text-align:center;padding-block:56px 48px}
-#footarch img,.about-photo img{aspect-ratio:1086/1245;object-position:50% 100%}
+#footarch img,.about-photo img{aspect-ratio:1086/1272;object-position:50% 100%}
 .arch.hero{margin:30px auto 0;width:min(560px,100%)}
 .arch.hero img{aspect-ratio:8/7;object-position:50% 50%}
 .arch{margin:0 auto 26px;width:min(300px,78%);padding:10px;border:1.5px solid #D9A3A3;border-radius:999px 999px 6px 6px}
@@ -183,7 +184,7 @@ footer .eyebrow .dot{opacity:.6}
     <div class="mark" aria-label="Lettered Forever"><span class="l">LETTERED</span><span class="f">forever</span></div>
     <div class="rule"></div>
     <div class="eyebrow">Hand stitched keepsakes</div>
-    <a class="aboutlink" href="#about" id="aboutlink">About me</a>
+    <a class="aboutlink" href="#about" id="aboutlink">About me <span aria-hidden="true">→</span></a>
     <figure class="arch hero" id="hero"><img src="img/hero-cushions.jpg" alt="Shelves stacked with ruffled Lettered Forever cushions" fetchpriority="high"></figure>
     <p class="lede" id="lede">Ready-to-personalise cushions, hand embroidered by Lotti</p>
   </header>
