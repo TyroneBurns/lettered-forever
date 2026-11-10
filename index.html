@@ -152,7 +152,8 @@ footer .eyebrow .dot{opacity:.6}
 .facts div{padding:12px 0;border-bottom:1px solid rgba(163,154,126,.45)}
 .facts div:nth-child(odd){padding-right:12px}
 .facts dt{font-family:var(--label);font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--taupe)}
-.facts dd{margin:4px 0 0;font-size:21px;font-variant-numeric:tabular-nums}
+.facts dd{margin:4px 0 0;font-size:21px;font-variant-numeric:tabular-nums;white-space:pre-line}
+#m-note{font-size:19px;line-height:1.45}
 .step{display:flex;justify-content:space-between;gap:12px;font-family:var(--label);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
 .step button{all:unset;cursor:pointer;color:var(--taupe)}
 .step button:hover{color:var(--rose)}
@@ -227,9 +228,10 @@ footer .eyebrow .dot{opacity:.6}
         <h2 id="m-name"></h2>
       </div>
       <dl class="facts">
-        <div><dt>Size</dt><dd id="m-size"></dd></div>
-        <div><dt>Fabric composition</dt><dd id="m-fabric"></dd></div>
-        <div class="wide" id="m-note-row" hidden><dt>Details</dt><dd id="m-note"></dd></div>
+        <div id="m-size-row"><dt>Size</dt><dd id="m-size"></dd></div>
+        <div id="m-fabric-row"><dt>Fabric composition</dt><dd id="m-fabric"></dd></div>
+        <div id="m-sold-row" hidden><dt>Sold as</dt><dd id="m-sold"></dd></div>
+        <div class="wide" id="m-note-row" hidden><dt>About this piece</dt><dd id="m-note"></dd></div>
       </dl>
       <div class="step">
         <button id="m-prevc">‹ <span></span></button>
@@ -296,13 +298,18 @@ const FRAMES = [
   fr("17","Gilt Grey",1,"Vintage gold-lined frame with grey linen, ready for your embroidery"),
   fr("18","Gilt Oat",1,"Vintage gold-lined frame with natural linen, ready for your embroidery")
 ];
-const fin=(key,name,n,note)=>({key,name,size:TBC,fabric:TBC,note,photos:Array.from({length:n},(_,i)=>`img/fin-${key}-${i+1}.jpg`)});
+const fin=(key,name,n,o)=>({key,name,...o,photos:Array.from({length:n},(_,i)=>`img/fin-${key}-${i+1}.jpg`)});
 const FINISHED = [
-  fin("01","Full of Sh*t",6,"Oversized checkerboard canvas tote, hand stitched lettering with bright orange straps"),
-  fin("02","La Glace",3,"Beaded ice cream with sequins, pearls and a hand stitched cherry, scalloped wooden frame"),
-  fin("03","Popcorn",3,"French knot popcorn with pearl beads, scalloped wooden frame"),
-  fin("04","Three Scoops",5,"Trio of beaded ice creams, scalloped wooden frame with mount"),
-  fin("05","Woodland",2,"Hand embroidered fox, squirrel, acorns and toadstools in a rounded wooden frame")
+  fin("01","Full of Sh*t",6,{size:"40 × 60 cm",fabric:"100% cotton",
+    note:"A fun gift for the person who is always carrying too much stuff! Oversized checkerboard canvas tote with bright orange handles, hand embroidered with vibrant green writing."}),
+  fin("02","La Glace",3,{size:"Fabric: 33 × 24 cm\nEmbroidery: 22 × 10 cm\nShown in a 27 × 22 cm frame",tileSize:"33 × 24 cm",sold:"Framed or unframed",
+    note:"Full of colour, sequins and beads. This ice cream would look great in a playroom to add a pop of colour to any wall."}),
+  fin("03","Bucket of Popcorn",3,{size:"Fabric: 27 × 25 cm\nEmbroidery: 12 × 11 cm",tileSize:"27 × 25 cm",sold:"Framed or unframed",
+    note:"A super fun embroidered popcorn design with added pearls. Can be personalised along the bottom."}),
+  fin("04","Trio of Ice Cream",5,{size:"To follow",sold:"Framed or unframed",
+    note:"Three beaded ice creams, full of texture and colour."}),
+  fin("05","Woodland",2,{size:"24 × 19 cm",sold:"Framed",
+    note:"A cute little woodland scene, with a fox and a squirrel. Personalisation can be added."})
 ];
 const VIEWS = {
   cushions:{hash:"#cushions",list:CUSHIONS,eyebrow:"The cushion collection",title:"Choose your cushion",label:"Cushion",
@@ -312,7 +319,7 @@ const VIEWS = {
   finds:{hash:"#local-finds",list:FINDS,eyebrow:"Vintage finds",title:"Vintage &amp; one-of-a-kind",label:"Vintage find",
     count:l=>`${l.length} ${l.length===1?'piece':'pieces'}`,hideKey:true,intro:"One off, vintage pieces I’ve managed to source. Everything can be embroidered with whatever design you’d like. Once they’re gone, they’re gone. Some truly special pieces."},
   finished:{hash:"#finished",list:FINISHED,eyebrow:"Finished designs",title:"Finished &amp; ready to ship",label:"Finished design",
-    count:l=>`${l.length} pieces`,hideKey:true,intro:"All pieces on this page have been finished and are ready to ship. Please check out the frames I have available, or reach out to me if you can’t find the size / style you’d like, I may be able to help!"}
+    count:l=>`${l.length} pieces`,hideKey:true,intro:"All pieces on this page have been finished and are ready to ship. Please read the description of each item before purchasing. All designs can be further personalised if required. I have frames available, reach out to me if you can’t find the size / style you’d like, I may be able to help!"}
 };
 let LIST=CUSHIONS,VIEW=VIEWS.cushions;
 
@@ -348,7 +355,7 @@ function build(){
     const fz=c.z||(v===VIEWS.cushions&&/^[A-Z]$/.test(c.key)?{s:1.22,o:'50% 64%'}:null);
     if(fz){ph.style.setProperty('--z',fz.s);ph.style.setProperty('--o',fz.o);}
     const cap=document.createElement('div');cap.className='cap';
-    cap.innerHTML=`${v.hideKey?'':`<span class="k">${c.key}</span>`}<span class="n">${c.name}</span><span class="s">${c.size}</span>`;
+    cap.innerHTML=`${v.hideKey?'':`<span class="k">${c.key}</span>`}<span class="n">${c.name}</span><span class="s">${c.tileSize||c.size}</span>`;
     b.append(ph,cap);b.onclick=()=>open(idx,b);li.appendChild(b);grid.appendChild(li);
   });
 }
@@ -366,7 +373,8 @@ function render(){
     const d=document.createElement('button');d.className='dot';d.setAttribute('aria-label',`Photo ${i+1}`);d.onclick=()=>go(i);dots.appendChild(d);
   });
   $('m-key').textContent=VIEW.hideKey?VIEW.label:`${VIEW.label} ${c.key}`;$('m-name').textContent=c.name;
-  $('m-size').textContent=c.size;$('m-fabric').textContent=c.fabric;
+  $('m-size').textContent=c.size;$('m-size-row').classList.toggle('wide',c.size.includes('\n'));$('m-fabric').textContent=c.fabric||'';$('m-fabric-row').hidden=!c.fabric;
+  $('m-sold-row').hidden=!c.sold;$('m-sold').textContent=c.sold||'';
   $('m-note-row').hidden=!c.note;$('m-note').textContent=c.note||'';
   const p=LIST[(cur-1+LIST.length)%LIST.length],n=LIST[(cur+1)%LIST.length];
   $('m-prevc').hidden=$('m-nextc').hidden=LIST.length<2;
