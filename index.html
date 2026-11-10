@@ -343,7 +343,7 @@ const FINISHED = [
 const VIEWS = {
   cushions:{hash:"#cushions",list:CUSHIONS,eyebrow:"The cushion collection",title:"Choose your cushion",label:"Cushion",
     count:l=>`${l.length} designs`,intro:null,hideKey:true},
-  frames:{hash:"#framed",list:FRAMES,eyebrow:"Fabric designs",title:"Framed &amp; ready to hang",label:"Frame",
+  frames:{off:true,hash:"#framed",list:FRAMES,eyebrow:"Fabric designs",title:"Framed &amp; ready to hang",label:"Frame",
     count:l=>`${l.length} frames`,hideKey:true,intro:"These are the frames I currently have available. Please choose a frame and get in touch with what you’d like embroidered inside, and which colour fabric you’d like."},
   finds:{hash:"#local-finds",list:FINDS,eyebrow:"Vintage finds",title:"Vintage &amp; one-of-a-kind",label:"Vintage find",
     count:l=>`${l.length} ${l.length===1?'piece':'pieces'}`,hideKey:true,intro:"One off, vintage pieces I’ve managed to source. Everything can be embroidered with whatever design you’d like. Once they’re gone, they’re gone. Some truly special pieces."},
@@ -367,13 +367,13 @@ function photo(c,i,lazy){
 
 const grid=$('grid');
 function build(){
-  const v=Object.values(VIEWS).find(x=>x.hash===location.hash)||VIEWS.cushions;
+  const v=Object.values(VIEWS).find(x=>!x.off&&x.hash===location.hash)||VIEWS.cushions;
   VIEW=v;LIST=v.list;
   $('v-eyebrow').textContent=v.eyebrow;$('v-title').innerHTML=v.title;
   $('count').textContent=v.count(LIST);
   $('lede').hidden=$('hero').hidden=$('how').hidden=v!==VIEWS.cushions;$('about').hidden=v!==VIEWS.about;$('footarch').hidden=v===VIEWS.about;$('aboutlink').hidden=v===VIEWS.about;
   if(v===VIEWS.about&&!$('pages').children.length){$('pages').innerHTML=Array.from({length:9},(_,i)=>`<img src="img/brochure-${i+1}.jpg" alt="Lettered Forever brochure, page ${i+1}" loading="lazy">`).join('');}$('v-intro').hidden=!v.intro;$('v-intro').textContent=v.intro||'';
-  $('v-links').innerHTML=Object.values(VIEWS).filter(x=>x!==v).map(x=>{
+  $('v-links').innerHTML=Object.values(VIEWS).filter(x=>x!==v&&!x.off).map(x=>{
     const back=x===VIEWS.cushions;
     return `<a class="more" href="${x.hash}"><span class="eyebrow">${back?'Back to':(x.linkEb||'Also available')}</span><span class="more-t">${back?'<span aria-hidden="true">←</span> ':''}${x.eyebrow}${back?'':' <span aria-hidden="true">→</span>'}</span></a>`;
   }).join('');
