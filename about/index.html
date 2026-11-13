@@ -24,6 +24,7 @@
 <meta name="twitter:image" content="https://letteredforever.com/og-image.jpg?v=2">
 <script>window.__VIEW="about";window.__URLS={"#cushions": "/", "#local-finds": "/vintage-finds/", "#finished": "/finished-designs/", "#about": "/about/"};</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "OnlineStore", "@id": "https://letteredforever.com/#store", "name": "Lettered Forever", "url": "https://letteredforever.com/", "logo": "https://letteredforever.com/icon-512.png", "image": "https://letteredforever.com/og-image.jpg", "description": "Personalised hand embroidery by Lotti: cushions, framed pieces, beaded embroidery and vintage finds, hand stitched in the Algarve, Portugal.", "email": "letteredforever@gmail.com", "sameAs": ["https://www.instagram.com/letteredforever/"], "founder": {"@type": "Person", "name": "Lotti"}, "address": {"@type": "PostalAddress", "addressRegion": "Algarve", "addressCountry": "PT"}, "areaServed": [{"@type": "Country", "name": "United Kingdom"}, {"@type": "Country", "name": "Portugal"}]}, {"@type": "WebSite", "@id": "https://letteredforever.com/#site", "url": "https://letteredforever.com/", "name": "Lettered Forever", "publisher": {"@id": "https://letteredforever.com/#store"}}, {"@type": "AboutPage", "url": "https://letteredforever.com/about/", "name": "About Lotti · Lettered Forever hand embroidery", "description": "Meet Lotti, the maker behind Lettered Forever. Personalised embroidery for loved ones, hand stitched in the Algarve, plus the Lettered Forever brochure.", "isPartOf": {"@id": "https://letteredforever.com/#site"}}]}</script>
+<script defer="" src="https://cloud.umami.is/script.js" data-website-id="f795eb60-8f64-464d-aaf8-2bf5a120ce1f" data-domains="letteredforever.com,www.letteredforever.com"></script>
 <title>About Lotti · Lettered Forever hand embroidery</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -416,7 +417,7 @@ build();
 addEventListener('hashchange',()=>{if(!$('modal').hidden)close();build();document.querySelector('main').scrollIntoView({block:'start'});});
 
 let cur=0,slide=0,opener=null;
-function open(idx,from){opener=from||opener;cur=idx;slide=0;render();$('modal').hidden=false;document.body.style.overflow='hidden';$('close').focus();}
+function open(idx,from){opener=from||opener;cur=idx;slide=0;track('Product opened',{product:LIST[idx].name,collection:VIEW.eyebrow});render();$('modal').hidden=false;document.body.style.overflow='hidden';$('close').focus();}
 function close(){$('modal').hidden=true;document.body.style.overflow='';opener&&opener.focus();}
 function render(){
   const c=LIST[cur];
@@ -444,6 +445,17 @@ function go(i){const len=LIST[cur].photos.length;slide=(i+len)%len;
 $('prev').onclick=()=>go(slide-1);$('next').onclick=()=>go(slide+1);
 $('m-prevc').onclick=()=>{cur=(cur-1+LIST.length)%LIST.length;render();};
 $('m-nextc').onclick=()=>{cur=(cur+1)%LIST.length;render();};
+const track=(n,d)=>{try{window.umami&&window.umami.track(n,d)}catch(e){}};
+document.addEventListener('click',e=>{
+  const el=e.target.closest('a,button');if(!el)return;
+  const prod=$('modal').hidden?undefined:(LIST[cur]||{}).name;
+  if(el.id==='m-ig')track('Instagram enquiry',{product:prod});
+  else if(el.id==='m-mail')track('Email enquiry',{product:prod});
+  else if(el.classList.contains('follow'))track('Instagram click',{where:'Follow button'});
+  else if(el.closest('.insta-grid'))track('Instagram click',{where:'Photo row'});
+  else if(el.tagName==='A'&&/instagram\.com/.test(el.href))track('Instagram click',{where:el.closest('.how')?'How it works box':'Commissions box'});
+  else if(el.classList.contains('copy'))track('Email copied',{where:el.closest('.how')?'How it works box':'Commissions box'});
+});
 let ENQ='';$('m-ig').addEventListener('click',()=>{try{navigator.clipboard.writeText(ENQ).then(()=>{$('m-copied').hidden=false},()=>{})}catch(e){}});
 $('close').onclick=close;
 $('modal').addEventListener('click',e=>{if(e.target.id==='modal')close();});
