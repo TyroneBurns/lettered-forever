@@ -157,7 +157,11 @@ async function load(){
     chart(s.daily);
     rows($('l-products'),s.top_products,i=>`${esc(i.product||'Unknown')}<small>${esc((i.collection||'').replace(/^The /,''))}</small>`);
     rows($('l-enq'),s.enquiries,i=>`${esc(i.product||'Unknown')}<small>${i.kind==='Instagram enquiry'?'Instagram':'Email'}</small>`);
-    rows($('l-place'),s.clicks_by_place,i=>`${esc(i.place||'Other')}<small>${i.kind==='Email copied'?'Email copied':'Instagram'}</small>`,{sage:true});
+    const pop={};(s.enquiries||[]).forEach(e=>{const k=e.kind==='Instagram enquiry'?'Instagram':'Email';pop[k]=(pop[k]||0)+e.n});
+    const places=(s.clicks_by_place||[]).map(i=>({label:i.place||'Other',tag:i.kind==='Email copied'?'Email copied':'Instagram',n:i.n}))
+      .concat(Object.entries(pop).map(([k,n])=>({label:'Product pop-up',tag:k==='Instagram'?'Instagram enquiry':'Email enquiry',n})))
+      .sort((a,b)=>b.n-a.n);
+    rows($('l-place'),places,i=>`${esc(i.label)}<small>${i.tag}</small>`,{sage:true});
     rows($('l-src'),s.sources,i=>esc(i.source),{sage:true});
     rows($('l-pages'),s.pages,i=>esc(PAGE_NAMES[i.path]||i.path),{sage:true});
     $('updated').textContent='Updated '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
