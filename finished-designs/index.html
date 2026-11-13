@@ -447,6 +447,8 @@ function go(i){const len=LIST[cur].photos.length;slide=(i+len)%len;
 $('prev').onclick=()=>go(slide-1);$('next').onclick=()=>go(slide+1);
 $('m-prevc').onclick=()=>{cur=(cur-1+LIST.length)%LIST.length;render();};
 $('m-nextc').onclick=()=>{cur=(cur+1)%LIST.length;render();};
+(function(){try{const q=new URLSearchParams(location.search);if(q.has('me')){localStorage.setItem('lf-no-track','1');localStorage.setItem('umami.disabled','1');q.delete('me');history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:'')+location.hash);
+  const t=document.createElement('div');t.textContent='Your visits in this browser won’t be counted.';t.style.cssText='position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:#8E4B55;color:#ECE3D4;font:14px Jost,system-ui,sans-serif;padding:10px 16px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.2)';document.body.appendChild(t);setTimeout(()=>t.remove(),3500)}}catch(e){}})();
 const SB_URL='https://ojmcgcwcblevxduprzol.supabase.co',SB_KEY='sb_publishable_AkHSeRYBCO3Pm79FSRHVfA_f7_sJnc0';
 const LIVE=/(^|\.)letteredforever\.com$/.test(location.hostname)&&(()=>{try{return localStorage.getItem('lf-no-track')!=='1'}catch(e){return true}})();
 function srcHost(){try{const r=document.referrer;if(!r)return '';const h=new URL(r).hostname.replace(/^www\./,'').replace(/^(l|lm|m)\./,'');return /letteredforever\.com$/.test(h)?'':h.slice(0,100)}catch(e){return ''}}
@@ -516,6 +518,8 @@ document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
 .spec{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}
 @media (max-width:520px){.modal{align-items:start}.stage{aspect-ratio:auto;height:min(100vw,52dvh)}}
 </style>
+
+<style>footer{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}</style>
 
 
 
