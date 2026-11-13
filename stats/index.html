@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Lettered Forever · Stats</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500&display=swap">
+<style>
+/* Layout: a single column of brochure-style cards: period chips, four headline tiles, a daily bar chart, then ranked lists. */
+:root{
+  --linen:#ECE3D4; --card:#F4EEE4; --box:#DEC5BD; --line:rgba(120,78,74,.22);
+  --ink:#3E392D; --taupe:#6B6551; --rose:#A35F67; --head:#8E4B55; --sage:#8A9A7B;
+  --display:"Cormorant Garamond",Garamond,"Times New Roman",serif;
+  --label:"Jost","Futura","Avenir Next",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--linen);color:var(--ink)}
+body{font-family:var(--display);font-size:18px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:calc(28px + env(safe-area-inset-top,0px)) calc(48px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:880px;margin:0 auto;display:grid;gap:22px}
+.eyebrow{font-family:var(--label);font-weight:500;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--taupe)}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+header img{width:170px;height:auto;display:block;margin-bottom:10px}
+h1{margin:2px 0 0;font-style:italic;font-weight:400;font-size:clamp(34px,6vw,44px);color:var(--rose);line-height:1}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--label);font-size:13px;letter-spacing:.04em;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--head);border-color:var(--head);color:var(--linen)}
+.chip:focus-visible,.refresh:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:700px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{background:var(--box);border:1px solid var(--line);border-radius:6px;padding:16px 16px 14px;display:grid;gap:6px;min-width:0}
+.tile .n{font-size:clamp(34px,6vw,44px);line-height:1;color:var(--head);font-variant-numeric:tabular-nums}
+.tile .k{font-family:var(--label);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#5A5444}
+.tile .s{font-family:var(--label);font-size:12px;color:var(--taupe)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px clamp(14px,3vw,24px);min-width:0}
+.card h2{margin:0 0 4px;font-weight:400;font-style:italic;font-size:26px;color:var(--rose)}
+.card .sub{margin:0 0 14px;font-family:var(--label);font-size:12.5px;color:var(--taupe)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+@media (max-width:700px){.two{grid-template-columns:minmax(0,1fr)}}
+.chart{overflow-x:auto}
+.chart svg{display:block;width:100%;height:auto;min-width:300px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--label);font-size:12px;color:var(--taupe);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.rows{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:baseline}
+.row .name{min-width:0;overflow-wrap:anywhere}
+.row .name small{font-family:var(--label);font-size:11px;letter-spacing:.06em;color:var(--taupe);margin-left:6px}
+.row .v{font-family:var(--label);font-size:14px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.bar{grid-column:1/-1;height:6px;border-radius:3px;background:rgba(142,75,85,.12);overflow:hidden}
+.bar span{display:block;height:100%;background:var(--head);border-radius:3px}
+.bar.sage span{background:var(--sage)}
+.empty{font-style:italic;color:var(--taupe);margin:0}
+.status{font-family:var(--label);font-size:12.5px;color:var(--taupe);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.refresh{font-family:var(--label);font-size:12px;letter-spacing:.06em;background:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink);cursor:pointer}
+.err{background:var(--box);border:1px solid var(--line);border-radius:6px;padding:14px 16px;font-family:var(--label);font-size:14px}
+footer{text-align:center;font-family:var(--label);font-size:11px;letter-spacing:.28em;color:var(--taupe);text-transform:uppercase;margin-top:10px}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <img src="/img/logo.png" alt="Lettered Forever" width="1400" height="620">
+      <div class="eyebrow">Website stats</div>
+      <h1>How the site is doing</h1>
+    </div>
+    <div class="chips" role="group" aria-label="Time period">
+      <button class="chip" data-d="7" aria-pressed="false">7 days</button>
+      <button class="chip" data-d="30" aria-pressed="true">30 days</button>
+      <button class="chip" data-d="90" aria-pressed="false">90 days</button>
+    </div>
+  </header>
+
+  <div class="status"><span id="updated">Loading…</span><button class="refresh" id="refresh">Refresh</button></div>
+  <div class="err" id="err" hidden></div>
+
+  <section class="tiles" aria-label="Totals">
+    <div class="tile"><span class="k">Page views</span><span class="n" id="t-views">–</span><span class="s" id="s-views">&nbsp;</span></div>
+    <div class="tile"><span class="k">Products opened</span><span class="n" id="t-prod">–</span><span class="s">Pop-ups opened</span></div>
+    <div class="tile"><span class="k">Instagram clicks</span><span class="n" id="t-ig">–</span><span class="s">Follows, photos &amp; enquiries</span></div>
+    <div class="tile"><span class="k">Email clicks</span><span class="n" id="t-mail">–</span><span class="s">Enquiries &amp; copies</span></div>
+  </section>
+
+  <section class="card">
+    <h2>Day by day</h2>
+    <p class="sub">Page views each day, with product pop-ups opened on top.</p>
+    <div class="chart" id="chart"></div>
+    <div class="legend"><span><i style="background:var(--box)"></i>Page views</span><span><i style="background:var(--head)"></i>Products opened</span></div>
+  </section>
+
+  <div class="two">
+    <section class="card"><h2>Most viewed products</h2><p class="sub">Which pop-ups people open most.</p><ul class="rows" id="l-products"></ul></section>
+    <section class="card"><h2>Enquiries</h2><p class="sub">Enquiry buttons pressed, by product.</p><ul class="rows" id="l-enq"></ul></section>
+    <section class="card"><h2>Where clicks happen</h2><p class="sub">Instagram and email clicks around the site.</p><ul class="rows" id="l-place"></ul></section>
+    <section class="card"><h2>Where visitors come from</h2><p class="sub">The site people were on before. Direct means a typed link, bookmark or app.</p><ul class="rows" id="l-src"></ul></section>
+    <section class="card"><h2>Pages</h2><p class="sub">Page views by section of the site.</p><ul class="rows" id="l-pages"></ul></section>
+  </div>
+
+  <footer><a href="/">Back to the site</a></footer>
+</div>
+
+<script>
+const SB_URL='https://ojmcgcwcblevxduprzol.supabase.co', SB_KEY='sb_publishable_AkHSeRYBCO3Pm79FSRHVfA_f7_sJnc0';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=n=>Number(n||0).toLocaleString('en-GB');
+const PAGE_NAMES={'/':'Cushions (home)','/vintage-finds/':'Vintage finds','/finished-designs/':'Finished designs','/about/':'About me'};
+let days=30;
+try{const d=+localStorage.getItem('lf-stats-days');if([7,30,90].includes(d))days=d}catch(e){}
+
+function rows(el,items,label,opts={}){
+  if(!items||!items.length){el.innerHTML='<li><p class="empty">Nothing yet for this period.</p></li>';return}
+  const max=Math.max(...items.map(i=>i.n));
+  el.innerHTML=items.map(i=>`<li class="row"><span class="name">${label(i)}</span><span class="v">${fmt(i.n)}</span><span class="bar${opts.sage?' sage':''}"><span style="width:${Math.max(3,Math.round(i.n/max*100))}%"></span></span></li>`).join('');
+}
+
+function chart(daily){
+  const map=new Map((daily||[]).map(d=>[d.day,d]));
+  const out=[],today=new Date();today.setUTCHours(0,0,0,0);
+  for(let i=days-1;i>=0;i--){const d=new Date(today);d.setUTCDate(d.getUTCDate()-i);const k=d.toISOString().slice(0,10);out.push(Object.assign({day:k,views:0,products:0},map.get(k)||{}))}
+  const W=800,H=220,P={l:34,r:8,t:10,b:26},iw=W-P.l-P.r,ih=H-P.t-P.b;
+  const max=Math.max(4,...out.map(d=>Math.max(d.views,d.products)));
+  const raw=max/4,mag=Math.pow(10,Math.floor(Math.log10(raw))),step=[1,2,5,10].map(m=>m*mag).find(v=>v>=raw),nice=Math.max(4,step*4);
+  const bw=iw/out.length,gap=Math.min(4,bw*.2);
+  const y=v=>P.t+ih-(v/nice)*ih;
+  let g='';
+  for(let t=0;t<=4;t++){const v=Math.round(nice*t/4),yy=y(v);g+=`<line x1="${P.l}" x2="${W-P.r}" y1="${yy}" y2="${yy}" stroke="rgba(120,78,74,.14)"/><text x="${P.l-6}" y="${yy+4}" text-anchor="end" font-size="11" font-family="Jost,sans-serif" fill="#6B6551">${v}</text>`}
+  const every=Math.ceil(out.length/7);
+  out.forEach((d,i)=>{
+    const x=P.l+i*bw+gap/2,w=bw-gap,label=new Date(d.day+'T00:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short',timeZone:'UTC'});
+    g+=`<g><title>${label}: ${d.views} page views, ${d.products} products opened</title>`;
+    g+=`<rect x="${x}" y="${y(d.views)}" width="${w}" height="${ih+P.t-y(d.views)}" rx="2" fill="#DEC5BD"/>`;
+    if(d.products) g+=`<rect x="${x+w*.25}" y="${y(d.products)}" width="${w*.5}" height="${ih+P.t-y(d.products)}" rx="1.5" fill="#8E4B55"/>`;
+    g+='</g>';
+    if(i%every===0||i===out.length-1) g+=`<text x="${x+w/2}" y="${H-8}" text-anchor="middle" font-size="11" font-family="Jost,sans-serif" fill="#6B6551">${label}</text>`;
+  });
+  $('chart').innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Daily page views and products opened over the last ${days} days">${g}</svg>`;
+}
+
+async function load(){
+  $('updated').textContent='Loading…';$('err').hidden=true;
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/rpc/site_stats',{method:'POST',headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({period_days:days})});
+    if(!r.ok)throw new Error('The stats service answered with error '+r.status+'.');
+    const s=await r.json();
+    $('t-views').textContent=fmt(s.views);$('t-prod').textContent=fmt(s.product_opens);
+    $('t-ig').textContent=fmt(s.instagram);$('t-mail').textContent=fmt(s.email);
+    $('s-views').textContent=`Last ${days} days`;
+    chart(s.daily);
+    rows($('l-products'),s.top_products,i=>`${esc(i.product||'Unknown')}<small>${esc((i.collection||'').replace(/^The /,''))}</small>`);
+    rows($('l-enq'),s.enquiries,i=>`${esc(i.product||'Unknown')}<small>${i.kind==='Instagram enquiry'?'Instagram':'Email'}</small>`);
+    rows($('l-place'),s.clicks_by_place,i=>`${esc(i.place||'Other')}<small>${i.kind==='Email copied'?'Email copied':'Instagram'}</small>`,{sage:true});
+    rows($('l-src'),s.sources,i=>esc(i.source),{sage:true});
+    rows($('l-pages'),s.pages,i=>esc(PAGE_NAMES[i.path]||i.path),{sage:true});
+    $('updated').textContent='Updated '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  }catch(e){
+    $('updated').textContent='Could not load';
+    $('err').hidden=false;$('err').textContent='The stats could not be loaded. '+(e.message||'')+' Check your connection and press Refresh.';
+  }
+}
+document.querySelectorAll('.chip').forEach(b=>{
+  b.setAttribute('aria-pressed',String(+b.dataset.d===days));
+  b.onclick=()=>{days=+b.dataset.d;try{localStorage.setItem('lf-stats-days',days)}catch(e){}document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c===b)));load()};
+});
+$('refresh').onclick=load;
+load();
+</script>
+</body>
+</html>

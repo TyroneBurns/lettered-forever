@@ -448,7 +448,12 @@ function go(i){const len=LIST[cur].photos.length;slide=(i+len)%len;
 $('prev').onclick=()=>go(slide-1);$('next').onclick=()=>go(slide+1);
 $('m-prevc').onclick=()=>{cur=(cur-1+LIST.length)%LIST.length;render();};
 $('m-nextc').onclick=()=>{cur=(cur+1)%LIST.length;render();};
-const track=(n,d)=>{try{window.umami&&window.umami.track(n,d)}catch(e){}};
+const SB_URL='https://ojmcgcwcblevxduprzol.supabase.co',SB_KEY='sb_publishable_AkHSeRYBCO3Pm79FSRHVfA_f7_sJnc0';
+const LIVE=/(^|\.)letteredforever\.com$/.test(location.hostname);
+function srcHost(){try{const r=document.referrer;if(!r)return '';const h=new URL(r).hostname.replace(/^www\./,'').replace(/^(l|lm|m)\./,'');return /letteredforever\.com$/.test(h)?'':h.slice(0,100)}catch(e){return ''}}
+function sb(n,d){if(!LIVE)return;try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{'apikey':SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({name:n,path:location.pathname.slice(0,200),referrer:srcHost(),data:d||{}})}).catch(()=>{})}catch(e){}}
+const track=(n,d)=>{try{window.umami&&window.umami.track(n,d)}catch(e){}sb(n,d)};
+sb('Page view');
 document.addEventListener('click',e=>{
   const el=e.target.closest('a,button');if(!el)return;
   const prod=$('modal').hidden?undefined:(LIST[cur]||{}).name;
