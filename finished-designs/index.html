@@ -450,18 +450,24 @@ $('m-nextc').onclick=()=>{cur=(cur+1)%LIST.length;render();};
 const SB_URL='https://ojmcgcwcblevxduprzol.supabase.co',SB_KEY='sb_publishable_AkHSeRYBCO3Pm79FSRHVfA_f7_sJnc0';
 const LIVE=/(^|\.)letteredforever\.com$/.test(location.hostname);
 function srcHost(){try{const r=document.referrer;if(!r)return '';const h=new URL(r).hostname.replace(/^www\./,'').replace(/^(l|lm|m)\./,'');return /letteredforever\.com$/.test(h)?'':h.slice(0,100)}catch(e){return ''}}
-function sb(n,d){if(!LIVE)return;try{fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{'apikey':SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({name:n,path:location.pathname.slice(0,200),referrer:srcHost(),data:d||{}})}).catch(()=>{})}catch(e){}}
-const track=(n,d)=>{try{window.umami&&window.umami.track(n,d)}catch(e){}sb(n,d)};
+function sb(n,d){if(!LIVE)return Promise.resolve();try{return fetch(SB_URL+'/rest/v1/events',{method:'POST',keepalive:true,headers:{'apikey':SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({name:n,path:location.pathname.slice(0,200),referrer:srcHost(),data:d||{}})}).catch(()=>{})}catch(e){return Promise.resolve()}}
+const track=(n,d)=>{try{window.umami&&window.umami.track(n,d)}catch(e){}return sb(n,d)};
 sb('Page view');
 document.addEventListener('click',e=>{
   const el=e.target.closest('a,button');if(!el)return;
   const prod=$('modal').hidden?undefined:(LIST[cur]||{}).name;
-  if(el.id==='m-ig')track('Instagram enquiry',{product:prod});
-  else if(el.id==='m-mail')track('Email enquiry',{product:prod});
-  else if(el.classList.contains('follow'))track('Instagram click',{where:'Follow button'});
-  else if(el.closest('.insta-grid'))track('Instagram click',{where:'Photo row'});
-  else if(el.tagName==='A'&&/instagram\.com/.test(el.href))track('Instagram click',{where:el.closest('.how')?'How it works box':'Commissions box'});
+  let p=null;
+  if(el.id==='m-ig')p=track('Instagram enquiry',{product:prod});
+  else if(el.id==='m-mail')p=track('Email enquiry',{product:prod});
+  else if(el.classList.contains('follow'))p=track('Instagram click',{where:'Follow button'});
+  else if(el.closest('.insta-grid'))p=track('Instagram click',{where:'Photo row'});
+  else if(el.tagName==='A'&&/instagram\.com/.test(el.href))p=track('Instagram click',{where:el.closest('.how')?'How it works box':'Commissions box'});
   else if(el.classList.contains('copy'))track('Email copied',{where:el.closest('.how')?'How it works box':'Commissions box'});
+  // Links that leave the site: give the click a moment to be recorded before the phone switches to Instagram or Mail.
+  if(p&&LIVE&&el.tagName==='A'&&!e.defaultPrevented&&!e.metaKey&&!e.ctrlKey){
+    e.preventDefault();const href=el.href;
+    Promise.race([p,new Promise(r=>setTimeout(r,900))]).finally(()=>{location.href=href});
+  }
 });
 let ENQ='';
 $('close').onclick=close;
