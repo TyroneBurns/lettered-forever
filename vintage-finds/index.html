@@ -506,6 +506,14 @@ document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
 .enq-note{flex-basis:100%;margin:0;font-family:var(--label);font-size:12px;color:var(--taupe)}
 </style>
 
+<style>
+/* keep the whole pop-up inside the visible screen on phones (browser toolbars included) */
+.modal{height:100vh;height:100dvh;bottom:auto}
+.sheet{max-height:calc(100vh - 32px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));max-height:calc(100dvh - 32px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.spec{padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}
+@media (max-width:520px){.modal{align-items:start}.stage{aspect-ratio:auto;height:min(100vw,52dvh)}}
+</style>
+
 
 
 </body></html>
