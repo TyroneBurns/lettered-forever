@@ -274,6 +274,7 @@ footer .eyebrow .dot{opacity:.6}
         <h2 id="m-name"></h2>
       </div>
       <dl class="facts">
+        <div id="m-price-row" class="wide" hidden=""><dt>Price</dt><dd id="m-price"></dd></div>
         <div id="m-size-row"><dt>Size</dt><dd id="m-size"></dd></div>
         <div id="m-fabric-row"><dt>Fabric composition</dt><dd id="m-fabric"></dd></div>
         <div id="m-sold-row" hidden=""><dt>Sold as</dt><dd id="m-sold"></dd></div>
@@ -350,15 +351,15 @@ const FRAMES = [
 ];
 const fin=(key,name,n,o)=>({key,name,...o,photos:Array.from({length:n},(_,i)=>`/img/fin-${key}-${i+1}.jpg`)});
 const FINISHED = [
-  fin("01","Full of Sh*t",6,{size:"40 × 60 cm",fabric:"100% cotton",
+  fin("01","Full of Sh*t",6,{price:"£32",size:"40 × 60 cm",fabric:"100% cotton",
     note:"A fun gift for the person who is always carrying too much stuff! Oversized checkerboard canvas tote with bright orange handles, hand embroidered with vibrant green writing."}),
-  fin("02","La Glace",3,{size:"Fabric: 33 × 24 cm\nEmbroidery: 22 × 10 cm\nShown in a 27 × 22 cm frame",tileSize:"33 × 24 cm",sold:"Framed or unframed",
+  fin("02","La Glace",3,{price:"£22",size:"Fabric: 33 × 24 cm\nEmbroidery: 22 × 10 cm\nShown in a 27 × 22 cm frame",tileSize:"33 × 24 cm",sold:"Framed or unframed",
     note:"Full of colour, sequins and beads. This ice cream would look great in a playroom to add a pop of colour to any wall."}),
-  fin("03","Bucket of Popcorn",3,{size:"Fabric: 27 × 25 cm\nEmbroidery: 12 × 11 cm",tileSize:"27 × 25 cm",sold:"Framed or unframed",
+  fin("03","Bucket of Popcorn",3,{price:"£35",size:"Fabric: 27 × 25 cm\nEmbroidery: 12 × 11 cm",tileSize:"27 × 25 cm",sold:"Framed or unframed",
     note:"A super fun embroidered popcorn design with added pearls. Can be personalised along the bottom."}),
-  fin("04","Trio of Ice Cream",5,{size:"To follow",sold:"Framed or unframed",
+  fin("04","Trio of Ice Cream",5,{price:"£22",size:"To follow",sold:"Framed or unframed",
     note:"Three beaded ice creams, full of texture and colour."}),
-  fin("05","Woodland",2,{size:"24 × 19 cm",sold:"Framed",
+  fin("05","Woodland",2,{price:"£18",size:"24 × 19 cm",sold:"Framed",
     note:"A cute little woodland scene, with a fox and a squirrel. Personalisation can be added.\n\nFramed in a solid mango wood frame with glass."})
 ];
 const VIEWS = {
@@ -408,7 +409,7 @@ function build(){
     const fz=c.z||(v===VIEWS.cushions&&/^[A-Z]$/.test(c.key)?{s:1.22,o:'50% 64%'}:null);
     if(fz){ph.style.setProperty('--z',fz.s);ph.style.setProperty('--o',fz.o);}
     const cap=document.createElement('div');cap.className='cap';
-    cap.innerHTML=`${v.hideKey?'':`<span class="k">${c.key}</span>`}<span class="n">${c.name}</span><span class="s">${c.tileSize||c.size}</span>`;
+    cap.innerHTML=`${v.hideKey?'':`<span class="k">${c.key}</span>`}<span class="n">${c.name}</span>${c.price?`<span class="s pr">${c.price}</span>`:`<span class="s">${c.tileSize||c.size}</span>`}`;
     b.append(ph,cap);b.onclick=()=>open(idx,b);li.appendChild(b);grid.appendChild(li);
   });
 }
@@ -427,6 +428,7 @@ function render(){
   });
   $('m-key').textContent=VIEW.hideKey?VIEW.label:`${VIEW.label} ${c.key}`;$('m-name').textContent=c.name;
   $('m-size').textContent=c.size;$('m-size-row').classList.toggle('wide',c.size.includes('\n'));$('m-fabric').textContent=c.fabric||'';$('m-fabric-row').hidden=!c.fabric;
+  $('m-price-row').hidden=!c.price;$('m-price').textContent=c.price||'';
   $('m-sold-row').hidden=!c.sold;$('m-sold').textContent=c.sold||'';
   const sz=c.tileSize||c.size,what=`${c.name} ${VIEW.label.toLowerCase()}`+(sz&&sz!=='To follow'?` (${sz})`:'');
   ENQ=`Hi Lotti, I’d love to enquire about the ${what}.`;
@@ -517,6 +519,8 @@ document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
 </style>
 
 <style>footer{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}</style>
+
+<style>.cap .s.pr{font-family:var(--display);font-size:19px;letter-spacing:0;color:var(--box-head,#8E4B55)}@media (max-width:420px){.cap .s.pr{display:inline}}#m-price{font-size:26px;color:var(--box-head,#8E4B55)}</style>
 
 
 
