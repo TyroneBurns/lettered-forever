@@ -33,7 +33,7 @@ h1{margin:2px 0 0;font-style:italic;font-weight:400;font-size:clamp(34px,6vw,44p
 .chip{font-family:var(--label);font-size:13px;letter-spacing:.04em;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--head);border-color:var(--head);color:var(--linen)}
 .chip:focus-visible,.refresh:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
-.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media (max-width:700px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .tile{background:var(--box);border:1px solid var(--line);border-radius:6px;padding:16px 16px 14px;display:grid;gap:6px;min-width:0}
 .tile .n{font-size:clamp(34px,6vw,44px);line-height:1;color:var(--head);font-variant-numeric:tabular-nums}
@@ -56,6 +56,11 @@ h1{margin:2px 0 0;font-style:italic;font-weight:400;font-size:clamp(34px,6vw,44p
 .bar{grid-column:1/-1;height:6px;border-radius:3px;background:rgba(142,75,85,.12);overflow:hidden}
 .bar span{display:block;height:100%;background:var(--head);border-radius:3px}
 .bar.sage span{background:var(--sage)}
+.gapt{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.heat{display:grid;grid-template-columns:auto repeat(7,minmax(0,1fr));gap:3px;font-family:var(--label);font-size:10.5px;color:var(--taupe);align-items:center}
+.heat .hd{text-align:center;padding-bottom:2px}.heat .hr{padding-right:6px;text-align:right;white-space:nowrap}
+.heat .c{height:16px;border-radius:3px;background:rgba(142,75,85,.07)}
+.newnote{font-family:var(--label);font-size:12.5px;color:var(--taupe);margin:0}
 .empty{font-style:italic;color:var(--taupe);margin:0}
 .status{font-family:var(--label);font-size:12.5px;color:var(--taupe);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .refresh{font-family:var(--label);font-size:12px;letter-spacing:.06em;background:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--ink);cursor:pointer}
@@ -93,10 +98,12 @@ footer a{color:inherit}
   <div class="err" id="err" hidden></div>
 
   <section class="tiles" aria-label="Totals">
+    <div class="tile"><span class="k">Visitors</span><span class="n" id="t-vis">–</span><span class="s" id="s-vis">People, counted once a day</span></div>
     <div class="tile"><span class="k">Page views</span><span class="n" id="t-views">–</span><span class="s" id="s-views">&nbsp;</span></div>
     <div class="tile"><span class="k">Products opened</span><span class="n" id="t-prod">–</span><span class="s">Pop-ups opened</span></div>
     <div class="tile"><span class="k">Instagram clicks</span><span class="n" id="t-ig">–</span><span class="s">Follows, photos &amp; enquiries</span></div>
-    <div class="tile"><span class="k">Email clicks</span><span class="n" id="t-mail">–</span><span class="s">Enquiries &amp; copies</span></div>
+    <div class="tile"><span class="k">Email clicks</span><span class="n" id="t-mail">–</span><span class="s">Enquiries, taps &amp; copies</span></div>
+    <div class="tile"><span class="k">Left after one page</span><span class="n" id="t-bounce">–</span><span class="s">Visitors who did nothing else</span></div>
   </section>
 
   <section class="card">
@@ -112,6 +119,10 @@ footer a{color:inherit}
     <section class="card"><h2>Where clicks happen</h2><p class="sub">Instagram and email clicks around the site.</p><ul class="rows" id="l-place"></ul></section>
     <section class="card"><h2>Where visitors come from</h2><p class="sub">The site people were on before. Direct means a typed link, bookmark or app.</p><ul class="rows" id="l-src"></ul></section>
     <section class="card"><h2>Pages</h2><p class="sub">Page views by section of the site.</p><ul class="rows" id="l-pages"></ul></section>
+    <section class="card"><h2>Countries</h2><p class="sub">Where in the world visitors are.</p><ul class="rows" id="l-countries"></ul></section>
+    <section class="card"><h2>Phone or computer</h2><p class="sub">What people browse on.</p><ul class="rows" id="l-devices"></ul><ul class="rows gapt" id="l-systems"></ul></section>
+    <section class="card"><h2>Browsers and apps</h2><p class="sub">Facebook app and Instagram app mean the link was opened inside that app.</p><ul class="rows" id="l-browsers"></ul></section>
+    <section class="card"><h2>Busiest times</h2><p class="sub">Page views by day and time (Portugal time). Darker means busier.</p><div id="heat" class="heat"></div></section>
   </div>
 
   <section class="card tidy" aria-labelledby="tidy-h">
@@ -169,6 +180,14 @@ function chart(daily){
 }
 
 let LAST=null;addEventListener('resize',()=>{if(LAST)chart(LAST)});
+function heat(hours){
+  const el=$('heat');if(!hours||!hours.length){el.innerHTML='<p class="empty" style="grid-column:1/-1">Nothing yet for this period.</p>';return}
+  const g={};let max=1;hours.forEach(h=>{const k=h.dow+'-'+Math.floor(h.hour/2);g[k]=(g[k]||0)+h.n;max=Math.max(max,g[k])});
+  const D=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];let out='<span></span>'+D.map(d=>`<span class="hd">${d}</span>`).join('');
+  const lab=b=>{const h=b*2;return (h===0?'12am':h<12?h+'am':h===12?'12pm':(h-12)+'pm')};
+  for(let b=0;b<12;b++){out+=`<span class="hr">${lab(b)}</span>`;for(let d=1;d<=7;d++){const n=g[d+'-'+b]||0;out+=`<span class="c" title="${D[d-1]} from ${lab(b)}: ${n} page views"${n?` style="background:rgba(142,75,85,${(0.18+0.82*n/max).toFixed(2)})"`:''}></span>`}}
+  el.innerHTML=out;
+}
 async function load(){
   $('updated').textContent='Loading…';$('err').hidden=true;
   try{
@@ -178,6 +197,18 @@ async function load(){
     $('t-views').textContent=fmt(s.views);$('t-prod').textContent=fmt(s.product_opens);
     $('t-ig').textContent=fmt(s.instagram);$('t-mail').textContent=fmt(s.email);
     $('s-views').textContent=`Last ${days} days`;
+    const hasV='visitors' in s;
+    $('t-vis').textContent=hasV?fmt(s.visitors):'–';
+    $('t-bounce').textContent=hasV&&s.bounce_rate!=null?s.bounce_rate+'%':'–';
+    const TZ={'Europe/Lisbon':'PT','Atlantic/Madeira':'PT','Atlantic/Azores':'PT','Europe/London':'GB','Europe/Dublin':'IE','Europe/Madrid':'ES','Europe/Paris':'FR','Europe/Berlin':'DE','Europe/Amsterdam':'NL','Europe/Brussels':'BE','Europe/Zurich':'CH','Europe/Rome':'IT','Europe/Stockholm':'SE','Europe/Oslo':'NO','Europe/Copenhagen':'DK','America/New_York':'US','America/Chicago':'US','America/Denver':'US','America/Los_Angeles':'US','America/Toronto':'CA','Australia/Sydney':'AU','Australia/Melbourne':'AU'};
+    let rn=null;try{rn=new Intl.DisplayNames(['en'],{type:'region'})}catch(e){}
+    const cname=c=>{if(!c)return 'Unknown';if(c.startsWith('tz:')){const z=c.slice(3);if(TZ[z])c=TZ[z];else return z.split('/').pop().replace(/_/g,' ')+' (time zone)'}try{return (rn&&rn.of(c))||c}catch(e){return c}};
+    const cm=new Map();(s.countries||[]).forEach(i=>{const k=cname(i.country);cm.set(k,(cm.get(k)||0)+i.n)});
+    rows($('l-countries'),[...cm].map(([k,n])=>({k,n})).sort((a,b)=>b.n-a.n),i=>esc(i.k),{sage:true});
+    rows($('l-devices'),s.devices,i=>esc(i.device),{sage:true});
+    rows($('l-systems'),s.systems,i=>esc(i.os),{sage:true});
+    rows($('l-browsers'),s.browsers,i=>esc(i.browser),{sage:true});
+    heat(s.hours);
     LAST=s.daily;chart(s.daily);
     rows($('l-products'),s.top_products,i=>`${esc(i.product||'Unknown')}<small>${esc((i.collection||'').replace(/^The /,''))}</small>`);
     rows($('l-enq'),s.enquiries,i=>`${esc(i.product||'Unknown')}<small>${i.kind==='Instagram enquiry'?'Instagram':'Email'}</small>`);
