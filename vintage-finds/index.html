@@ -224,7 +224,7 @@ footer .eyebrow .dot{opacity:.6}
         <p>My designs usually have a 2–3 week turnaround, however please let me know if you have a specific date in mind and I will try my best!</p>
       </div>
       <div class="contact">
-        <div class="row"><span class="ci"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1"></rect><path d="M3.5 6.5 12 13l8.5-6.5"></path></svg><code id="em">letteredforever@gmail.com</code></span><button class="copy" data-copy="em">Copy</button></div>
+        <div class="row"><span class="ci"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="1"></rect><path d="M3.5 6.5 12 13l8.5-6.5"></path></svg><a class="maillink" id="em" href="mailto:letteredforever@gmail.com">letteredforever@gmail.com</a></span><button class="copy" data-copy="em">Copy</button></div>
         <div class="row"><a class="ig ci" href="https://www.instagram.com/letteredforever/" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"></circle></svg>@letteredforever</a></div>
       </div>
     </section>
@@ -441,6 +441,7 @@ document.addEventListener('click',e=>{
   else if(el.classList.contains('follow'))p=track('Instagram click',{where:'Follow button'});
   else if(el.closest('.insta-grid'))p=track('Instagram click',{where:'Photo row'});
   else if(el.tagName==='A'&&/instagram\.com/.test(el.href))p=track('Instagram click',{where:el.closest('.how')?'How it works box':'Commissions box'});
+  else if(el.classList.contains('maillink'))p=track('Email copied',{where:'Email address, '+(el.closest('.how')?'How it works box':'Commissions box')});
   else if(el.classList.contains('copy'))track('Email copied',{where:el.closest('.how')?'How it works box':'Commissions box'});
   // Links that leave the site: give the click a moment to be recorded before the phone switches to Instagram or Mail.
   if(p&&LIVE&&el.tagName==='A'&&!e.defaultPrevented&&!e.metaKey&&!e.ctrlKey){
@@ -504,6 +505,13 @@ document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
 .copy{min-height:44px;padding:8px 16px}
 .how-c a.ci,.contact a.ig,.how-c .crow .ci{min-height:44px}
 .more{min-height:44px}</style>
+
+<style>
+/* the width/height attributes are only hints: let the arch photos keep their CSS shape */
+.arch img{height:auto}
+.about-photo img{aspect-ratio:1086/1272}
+.maillink{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;font-family:var(--label);overflow-wrap:anywhere;display:inline-flex;align-items:center;min-height:44px}
+</style>
 
 
 

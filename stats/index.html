@@ -182,7 +182,7 @@ async function load(){
     rows($('l-products'),s.top_products,i=>`${esc(i.product||'Unknown')}<small>${esc((i.collection||'').replace(/^The /,''))}</small>`);
     rows($('l-enq'),s.enquiries,i=>`${esc(i.product||'Unknown')}<small>${i.kind==='Instagram enquiry'?'Instagram':'Email'}</small>`);
     const pop={};(s.enquiries||[]).forEach(e=>{const k=e.kind==='Instagram enquiry'?'Instagram':'Email';pop[k]=(pop[k]||0)+e.n});
-    const places=(s.clicks_by_place||[]).map(i=>({label:i.place||'Other',tag:i.kind==='Email copied'?'Email copied':'Instagram',n:i.n}))
+    const places=(s.clicks_by_place||[]).map(i=>({label:i.place||'Other',tag:i.kind==='Email copied'?(/^Email address/.test(i.place||'')?'Email tapped':'Email copied'):'Instagram',n:i.n}))
       .concat(Object.entries(pop).map(([k,n])=>({label:'Product pop-up',tag:k==='Instagram'?'Instagram enquiry':'Email enquiry',n})))
       .sort((a,b)=>b.n-a.n);
     rows($('l-place'),places,i=>`${esc(i.label)}<small>${i.tag}</small>`,{sage:true});
