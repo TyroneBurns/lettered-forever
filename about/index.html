@@ -5,6 +5,11 @@
 <meta name="description" content="Meet Lotti, the maker behind Lettered Forever. Personalised embroidery for loved ones, hand stitched in the Algarve, plus the Lettered Forever brochure.">
 <meta name="theme-color" content="#ECE3D4">
 <link rel="canonical" href="https://letteredforever.com/about/">
+<link rel="alternate" hreflang="en" href="https://letteredforever.com/about/">
+<link rel="alternate" hreflang="pt-PT" href="https://letteredforever.com/pt/about/">
+<link rel="alternate" hreflang="x-default" href="https://letteredforever.com/about/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="pt_PT">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -22,8 +27,8 @@
 <meta name="twitter:title" content="About Lotti · Lettered Forever hand embroidery">
 <meta name="twitter:description" content="Meet Lotti, the maker behind Lettered Forever. Personalised embroidery for loved ones, hand stitched in the Algarve, plus the Lettered Forever brochure.">
 <meta name="twitter:image" content="https://letteredforever.com/og-image.jpg?v=2">
-<script>window.__VIEW="about";window.__URLS={"#cushions": "/", "#local-finds": "/vintage-finds/", "#finished": "/finished-designs/", "#about": "/about/"};</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "OnlineStore", "@id": "https://letteredforever.com/#store", "name": "Lettered Forever", "url": "https://letteredforever.com/", "logo": "https://letteredforever.com/icon-512.png", "image": "https://letteredforever.com/og-image.jpg", "description": "Personalised hand embroidery by Lotti: cushions, framed pieces, beaded embroidery and vintage finds, hand stitched in the Algarve, Portugal.", "email": "letteredforever@gmail.com", "sameAs": ["https://www.instagram.com/letteredforever/"], "founder": {"@type": "Person", "name": "Lotti"}, "address": {"@type": "PostalAddress", "addressRegion": "Algarve", "addressCountry": "PT"}, "areaServed": [{"@type": "Country", "name": "United Kingdom"}, {"@type": "Country", "name": "Portugal"}]}, {"@type": "WebSite", "@id": "https://letteredforever.com/#site", "url": "https://letteredforever.com/", "name": "Lettered Forever", "publisher": {"@id": "https://letteredforever.com/#store"}}, {"@type": "AboutPage", "url": "https://letteredforever.com/about/", "name": "About Lotti · Lettered Forever hand embroidery", "description": "Meet Lotti, the maker behind Lettered Forever. Personalised embroidery for loved ones, hand stitched in the Algarve, plus the Lettered Forever brochure.", "isPartOf": {"@id": "https://letteredforever.com/#site"}}]}</script>
+<script>window.__VIEW="about";window.__LANG="en";window.__URLS={"#cushions": "/", "#local-finds": "/vintage-finds/", "#finished": "/finished-designs/", "#about": "/about/"};</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "OnlineStore", "@id": "https://letteredforever.com/#store", "name": "Lettered Forever", "url": "https://letteredforever.com/", "logo": "https://letteredforever.com/icon-512.png", "image": "https://letteredforever.com/og-image.jpg", "description": "Personalised hand embroidery by Lotti: cushions, framed pieces, beaded embroidery and vintage finds, hand stitched in the Algarve, Portugal.", "email": "letteredforever@gmail.com", "sameAs": ["https://www.instagram.com/letteredforever/"], "founder": {"@type": "Person", "name": "Lotti"}, "address": {"@type": "PostalAddress", "addressRegion": "Algarve", "addressCountry": "PT"}, "areaServed": [{"@type": "Country", "name": "United Kingdom"}, {"@type": "Country", "name": "Portugal"}]}, {"@type": "WebSite", "@id": "https://letteredforever.com/#site", "url": "https://letteredforever.com/", "name": "Lettered Forever", "publisher": {"@id": "https://letteredforever.com/#store"}}, {"@type": "AboutPage", "url": "https://letteredforever.com/about/", "name": "About Lotti · Lettered Forever hand embroidery", "description": "Meet Lotti, the maker behind Lettered Forever. Personalised embroidery for loved ones, hand stitched in the Algarve, plus the Lettered Forever brochure.", "inLanguage": "en-GB", "isPartOf": {"@id": "https://letteredforever.com/#site"}}]}</script>
 <script defer="" src="https://cloud.umami.is/script.js" data-website-id="f795eb60-8f64-464d-aaf8-2bf5a120ce1f" data-domains="letteredforever.com,www.letteredforever.com"></script>
 <title>About Lotti · Lettered Forever hand embroidery</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -189,6 +194,7 @@ footer .eyebrow .dot{opacity:.6}
 
 <div class="wrap">
   <header>
+    <nav class="lang" aria-label="Language"><a href="/about/" hreflang="en" lang="en" aria-current="true">EN</a><a href="/pt/about/" hreflang="pt-PT" lang="pt-PT" aria-current="false">PT</a></nav>
     <h1 class="logo"><img src="/img/logo.png?v=1741" alt="Lettered Forever" width="1400" height="620"></h1>
     <div class="rule"></div>
     <div class="eyebrow">Hand stitched keepsakes</div>
@@ -526,6 +532,13 @@ document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
 .arch img{height:auto}
 .about-photo img{aspect-ratio:1086/1272}
 .maillink{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;font-family:var(--label);overflow-wrap:anywhere;display:inline-flex;align-items:center;min-height:44px}
+</style>
+
+<style>
+.lang{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));display:flex;border:1px solid var(--box-line,rgba(120,78,74,.28));border-radius:999px;overflow:hidden;background:var(--linen);z-index:5}
+.lang a{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:36px;padding:0 10px;font-family:var(--label);font-size:12px;letter-spacing:.14em;color:var(--taupe);text-decoration:none}
+.lang a[aria-current="true"]{background:var(--box-head,#8E4B55);color:var(--linen)}
+.lang a:focus-visible{outline:2px solid var(--rose);outline-offset:-2px}
 </style>
 
 
