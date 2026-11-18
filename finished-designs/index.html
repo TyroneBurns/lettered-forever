@@ -523,10 +523,12 @@ document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{
 </style>
 
 <style>
-.lang{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));display:flex;border:1px solid var(--box-line,rgba(120,78,74,.28));border-radius:999px;overflow:hidden;background:var(--linen);z-index:5}
-.lang a{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:36px;padding:0 10px;font-family:var(--label);font-size:12px;letter-spacing:.14em;color:var(--taupe);text-decoration:none}
-.lang a[aria-current="true"]{background:var(--box-head,#8E4B55);color:var(--linen)}
-.lang a:focus-visible{outline:2px solid var(--rose);outline-offset:-2px}
+.lang{position:absolute;top:calc(10px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));display:flex;align-items:center;z-index:5}
+.lang a{display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:40px;padding:0 4px;font-family:var(--label);font-size:11px;letter-spacing:.18em;color:var(--taupe);opacity:.55;text-decoration:none}
+.lang a+a::before{content:"";width:1px;height:10px;background:currentColor;opacity:.5;margin-right:12px;position:relative;left:-4px}
+.lang a[aria-current="true"]{opacity:1;color:var(--ink)}
+.lang a:hover{opacity:1}
+.lang a:focus-visible{outline:2px solid var(--rose);outline-offset:-4px;border-radius:4px}
 </style>
 
 
