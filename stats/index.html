@@ -146,7 +146,7 @@ const SB_URL='https://ojmcgcwcblevxduprzol.supabase.co', SB_KEY='sb_publishable_
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=n=>Number(n||0).toLocaleString('en-GB');
-const PAGE_NAMES={'/':'Cushions (home)','/vintage-finds/':'Vintage finds','/finished-designs/':'Finished designs','/about/':'About me','/pt/':'Cushions (home) · PT','/pt/vintage-finds/':'Vintage finds · PT','/pt/finished-designs/':'Finished designs · PT','/pt/about/':'About me · PT'};
+const PAGE_NAMES={'/':'Cushions (home)','/vintage-finds/':'Vintage finds','/finished-designs/':'Finished designs','/about/':'About me','/cardigans/':'Cardigans','/pt/cardigans/':'Cardigans · PT','/pt/':'Cushions (home) · PT','/pt/vintage-finds/':'Vintage finds · PT','/pt/finished-designs/':'Finished designs · PT','/pt/about/':'About me · PT'};
 let days=30;
 try{const d=+localStorage.getItem('lf-stats-days');if([7,30,90].includes(d))days=d}catch(e){}
 

@@ -27,7 +27,7 @@
 <meta name="twitter:title" content="Sobre a Lotti · Bordados Lettered Forever">
 <meta name="twitter:description" content="Conheça a Lotti, a artesã por trás da Lettered Forever. Bordados personalizados para quem mais gosta, feitos à mão no Algarve.">
 <meta name="twitter:image" content="https://letteredforever.com/og-image.jpg?v=2">
-<script>window.__VIEW="about";window.__LANG="pt";window.__URLS={"#cushions": "/pt/", "#local-finds": "/pt/vintage-finds/", "#finished": "/pt/finished-designs/", "#about": "/pt/about/"};</script>
+<script>window.__VIEW="about";window.__LANG="pt";window.__URLS={"#cushions": "/pt/", "#cardigans": "/pt/cardigans/", "#local-finds": "/pt/vintage-finds/", "#finished": "/pt/finished-designs/", "#about": "/pt/about/"};</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "OnlineStore", "@id": "https://letteredforever.com/#store", "name": "Lettered Forever", "url": "https://letteredforever.com/", "logo": "https://letteredforever.com/icon-512.png", "image": "https://letteredforever.com/og-image.jpg", "description": "Personalised hand embroidery by Lotti: cushions, framed pieces, beaded embroidery and vintage finds, hand stitched in the Algarve, Portugal.", "email": "letteredforever@gmail.com", "sameAs": ["https://www.instagram.com/letteredforever/"], "founder": {"@type": "Person", "name": "Lotti"}, "address": {"@type": "PostalAddress", "addressRegion": "Algarve", "addressCountry": "PT"}, "areaServed": [{"@type": "Country", "name": "United Kingdom"}, {"@type": "Country", "name": "Portugal"}]}, {"@type": "WebSite", "@id": "https://letteredforever.com/#site", "url": "https://letteredforever.com/", "name": "Lettered Forever", "publisher": {"@id": "https://letteredforever.com/#store"}}, {"@type": "AboutPage", "url": "https://letteredforever.com/pt/about/", "name": "Sobre a Lotti · Bordados Lettered Forever", "description": "Conheça a Lotti, a artesã por trás da Lettered Forever. Bordados personalizados para quem mais gosta, feitos à mão no Algarve.", "inLanguage": "pt-PT", "isPartOf": {"@id": "https://letteredforever.com/#site"}}]}</script>
 <script defer="" src="https://cloud.umami.is/script.js" data-website-id="f795eb60-8f64-464d-aaf8-2bf5a120ce1f" data-domains="letteredforever.com,www.letteredforever.com"></script>
 <title>Sobre a Lotti · Bordados Lettered Forever</title>
@@ -227,7 +227,7 @@ footer .eyebrow .dot{opacity:.6}
       <div class="head brochure-head"><div><div class="eyebrow">A brochura</div><h2>Lettered Forever, página a página</h2></div></div>
       <div class="pages" id="pages"><img src="/img/brochure-1.jpg?v=1114" alt="Brochura Lettered Forever, página 1" loading="lazy"><img src="/img/brochure-2.jpg?v=1114" alt="Brochura Lettered Forever, página 2" loading="lazy"><img src="/img/brochure-3.jpg?v=1114" alt="Brochura Lettered Forever, página 3" loading="lazy"><img src="/img/brochure-4.jpg?v=1114" alt="Brochura Lettered Forever, página 4" loading="lazy"><img src="/img/brochure-5.jpg?v=1114" alt="Brochura Lettered Forever, página 5" loading="lazy"><img src="/img/brochure-6.jpg?v=1114" alt="Brochura Lettered Forever, página 6" loading="lazy"><img src="/img/brochure-7.jpg?v=1114" alt="Brochura Lettered Forever, página 7" loading="lazy"><img src="/img/brochure-8.jpg?v=1114" alt="Brochura Lettered Forever, página 8" loading="lazy"><img src="/img/brochure-9.jpg?v=1114" alt="Brochura Lettered Forever, página 9" loading="lazy"></div>
     </section>
-    <nav class="more-wrap" id="v-links" aria-label="Outras coleções"><a class="more" href="/pt/"><span class="eyebrow">Voltar a</span><span class="more-t"><span aria-hidden="true">←</span> A coleção de almofadas</span></a><a class="more" href="/pt/vintage-finds/"><span class="eyebrow">Também disponível</span><span class="more-t">Achados vintage <span aria-hidden="true">→</span></span></a><a class="more" href="/pt/finished-designs/"><span class="eyebrow">Também disponível</span><span class="more-t">Peças acabadas <span aria-hidden="true">→</span></span></a></nav>
+    <nav class="more-wrap" id="v-links" aria-label="Outras coleções"><a class="more" href="/pt/"><span class="eyebrow">Voltar a</span><span class="more-t"><span aria-hidden="true">←</span> A coleção de almofadas</span></a><a class="more" href="/pt/cardigans/"><span class="eyebrow">Também disponível</span><span class="more-t">Casacos de bebé <span aria-hidden="true">→</span></span></a><a class="more" href="/pt/vintage-finds/"><span class="eyebrow">Também disponível</span><span class="more-t">Achados vintage <span aria-hidden="true">→</span></span></a><a class="more" href="/pt/finished-designs/"><span class="eyebrow">Também disponível</span><span class="more-t">Peças acabadas <span aria-hidden="true">→</span></span></a></nav>
 
     <section class="insta" aria-labelledby="insta-h">
       <div class="head"><div><div class="eyebrow">Instagram</div><h2 id="insta-h">Acompanhe</h2></div>
@@ -361,9 +361,14 @@ const FINISHED = [
   fin("05","Woodland",2,{price:"£18",size:"24 × 19 cm",sold:"Com moldura",
     note:"Uma pequena cena de bosque, com uma raposa e um esquilo. Pode ser personalizada.\n\nEm moldura de madeira maciça de mangueira, com vidro."})
 ];
+// Baby cardigans: ready to be personalised. Photos at img/cardi-<NN>-1.jpg
+const cd=(key,name)=>({key,name,price:"Desde £35",size:"Recém-nascido até 3 anos",photos:[`/img/cardi-${key}-1.jpg`]});
+const CARDIGANS = [cd("01","Rosa"),cd("02","Creme"),cd("03","Azul-marinho")];
 const VIEWS = {
   cushions:{hash:"#cushions",list:CUSHIONS,eyebrow:"A coleção de almofadas",title:"Escolha a sua almofada",label:"Almofada",
-    count:l=>`${l.length} modelos`,intro:null,hideKey:true},
+    count:l=>`${l.length} modelos`,intro:"As almofadas custam a partir de £45.",from:"Desde £45",hideKey:true},
+  cardigans:{hash:"#cardigans",list:CARDIGANS,eyebrow:"Casacos de bebé",title:"Casacos para personalizar",label:"Casaco",
+    count:l=>`${l.length} cores`,hideKey:true,intro:"Os casacos custam a partir de £35, em tamanhos de recém-nascido até aos 3 anos. Fale comigo para acrescentar um nome ou design bordado à mão."},
   frames:{off:true,hash:"#framed",list:FRAMES,eyebrow:"Fabric designs",title:"Framed &amp; ready to hang",label:"Frame",
     count:l=>`${l.length} frames`,hideKey:true,intro:"These are the frames I currently have available. Please choose a frame and get in touch with what you’d like embroidered inside, and which colour fabric you’d like."},
   finds:{hash:"#local-finds",list:FINDS,eyebrow:"Achados vintage",title:"Vintage e peças únicas",label:"Achado vintage",
@@ -381,9 +386,10 @@ function placeholder(c,i){
 }
 function photo(c,i,lazy){
   const box=document.createDocumentFragment();
-  const kind=VIEW===VIEWS.cushions?'almofada personalizada':VIEW===VIEWS.finds?'achado vintage':VIEW===VIEWS.finished?'peça bordada à mão':'moldura';
+  const kind=VIEW===VIEWS.cushions?'almofada personalizada':VIEW===VIEWS.cardigans?'casaco de bebé':VIEW===VIEWS.finds?'achado vintage':VIEW===VIEWS.finished?'peça bordada à mão':'moldura';
   const img=new Image();img.alt=i===0?`${kind[0].toUpperCase()+kind.slice(1)} ${c.name} da Lettered Forever, ${(c.tileSize||c.size)}${c.fabric&&c.fabric!=='A indicar'?', '+c.fabric:''}`:`${kind[0].toUpperCase()+kind.slice(1)} ${c.name}, foto ${i+1}`;img.decoding='async';if(lazy)img.loading='lazy';
   img.onerror=()=>img.replaceWith(placeholder(c,i));
+  if(VIEW===VIEWS.cardigans&&!lazy){img.style.objectFit='contain';img.style.background='#fff'}
   img.src=c.photos[i];box.appendChild(img);return box;
 }
 
@@ -426,8 +432,8 @@ function render(){
     const d=document.createElement('button');d.className='dot';d.setAttribute('aria-label',`Foto ${i+1}`);d.onclick=()=>go(i);dots.appendChild(d);
   });
   $('m-key').textContent=VIEW.hideKey?VIEW.label:`${VIEW.label} ${c.key}`;$('m-name').textContent=c.name;
-  $('m-size').textContent=c.size;$('m-size-row').classList.toggle('wide',c.size.includes('\n'));$('m-fabric').textContent=c.fabric||'';$('m-fabric-row').hidden=!c.fabric;
-  $('m-price-row').hidden=!c.price;$('m-price').textContent=c.price||'';
+  $('m-size').textContent=c.size;$('m-size-row').classList.toggle('wide',c.size.includes('\n')||(!c.fabric&&c.size.length>14));$('m-fabric').textContent=c.fabric||'';$('m-fabric-row').hidden=!c.fabric;
+  const pr=c.price||VIEW.from||'';$('m-price-row').hidden=!pr;$('m-price').textContent=pr;
   $('m-sold-row').hidden=!c.sold;$('m-sold').textContent=c.sold||'';
   const sz=c.tileSize||c.size,what=`${VIEW.label.toLowerCase()} ${c.name}`+(sz&&sz!=='A indicar'?` (${sz})`:'');
   ENQ=`Olá Lotti, gostaria de pedir informações sobre: ${what}.`;
@@ -437,6 +443,7 @@ function render(){
   $('m-prevc').hidden=$('m-nextc').hidden=LIST.length<2;
   $('m-prevc').querySelector('span').textContent=VIEW.hideKey?p.name:`${p.key} ${p.name}`;
   $('m-nextc').querySelector('span').textContent=VIEW.hideKey?n.name:`${n.key} ${n.name}`;
+  const one=c.photos.length<2;$('prev').hidden=$('next').hidden=$('dots').hidden=one;
   go(0);
 }
 function go(i){const len=LIST[cur].photos.length;slide=(i+len)%len;
